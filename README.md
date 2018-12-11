@@ -1,11 +1,6 @@
 # B.H.O.B.A.
-# Bounty Hunter Operation Basic Assistant
-
-# MCVC Built in C# using Entity & Identity.
-
-# The need
-
-# Welcome to Bangazon!
+### Bounty Hunter Operation Basic Assistant
+MCVC Built in C# using Entity & Identity.
 
 ## What is BHOBA
 
