@@ -18,10 +18,13 @@ namespace Bhoba.Models
         public string LastName { get; set; }
 
         [Required]
-        [Display(Name = "Street Address")]
-        public Address Address { get; set; }
+        public int AddressId { get; set; }
 
         [Required]
-        public bool IsAdmin { get; set; }
+        public bool IsBondsman { get; set; }
+
+
+        [Required]
+        public Address Address { get; set; }
     }
 }
