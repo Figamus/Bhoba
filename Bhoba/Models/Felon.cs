@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Bhoba.Models
 {
-    public class RecoveryAgent
+    public class Felon
     {
         [Key]
-        public int RecoveryAgentId { get; set; }
+        public int FelonId { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -20,12 +20,12 @@ namespace Bhoba.Models
         public string LastName { get; set; }
 
         [Required]
-        public DateTime DateOfBirth { get; set; }
+        public int DateOfBirth { get; set; }
 
         [Required]
-        public Address Address { get; set; }
+        public List<Address> Addresses { get; set; }
 
         [Required]
-        public string SerialNumber { get; set; }
+        public string Alias { get; set; }
     }
 }

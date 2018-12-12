@@ -8,7 +8,6 @@ namespace Bhoba.Models
 {
     public class BailBondsman
     {
-
         [Key]
         public int BailBondsmanId { get; set; }
 
@@ -17,15 +16,7 @@ namespace Bhoba.Models
         public string Name { get; set; }
 
         [Required]
-        public string StreetAddress { get; set; }
-
-        [Required]
-        [StringLength(55, ErrorMessage = "Please set a city")]
-        public string City { get; set; }
-
-        [Required]
-        [StringLength(55, ErrorMessage = "Please select a state")]
-        public string State { get; set; }
+        public Address Address { get; set; }
 
         [Required]
         [StringLength(255)]
