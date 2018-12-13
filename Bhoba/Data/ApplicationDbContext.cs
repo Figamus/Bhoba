@@ -16,5 +16,6 @@ namespace Bhoba.Data
         public DbSet<Felon> Felons { get; set; }
         public DbSet<FelonBounty> FelonBounties { get; set; }
         public DbSet<RecoveryAgent> RecoveryAgents { get; set; }
+        public DbSet<FelonAddress> FelonAddresses { get; set; }
     }
 }
