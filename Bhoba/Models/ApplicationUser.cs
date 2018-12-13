@@ -21,10 +21,13 @@ namespace Bhoba.Models
         public int AddressId { get; set; }
 
         [Required]
-        public bool IsBondsman { get; set; }
+        public int ApplicationUserRoleId { get; set; }
 
 
         [Required]
         public Address Address { get; set; }
+
+        [Required]
+        public ApplicationUserRole Role { get; set; }
     }
 }

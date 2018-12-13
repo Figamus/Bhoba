@@ -18,10 +18,6 @@ namespace Bhoba.Models
         [Required]
         public Address Address { get; set; }
 
-        [Required]
-        [StringLength(255)]
-        public string Description { get; set; }
-
         public virtual ICollection<RecoveryAgent> RecoveryAgents { get; set; }
     }
 }

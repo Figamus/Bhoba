@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Bhoba.Data.Migrations
+namespace Bhoba.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181213004904_felonaddresses")]
-    partial class felonaddresses
+    [Migration("20181213191203_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,8 +31,6 @@ namespace Bhoba.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(55);
 
-                    b.Property<int?>("FelonId");
-
                     b.Property<string>("State")
                         .IsRequired()
                         .HasMaxLength(55);
@@ -47,9 +45,31 @@ namespace Bhoba.Data.Migrations
 
                     b.HasKey("AddressId");
 
-                    b.HasIndex("FelonId");
-
                     b.ToTable("Addresses");
+
+                    b.HasData(
+                        new { AddressId = 1, City = "Everywhere", State = "XX", StreetAddress = "123 Admin Way", ZipCode = "12345" }
+                    );
+                });
+
+            modelBuilder.Entity("Bhoba.Models.ApplicationUserRole", b =>
+                {
+                    b.Property<int>("ApplicationUserRoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RoleName")
+                        .IsRequired();
+
+                    b.HasKey("ApplicationUserRoleId");
+
+                    b.ToTable("ApplicatonUserRoles");
+
+                    b.HasData(
+                        new { ApplicationUserRoleId = 1, RoleName = "Admin" },
+                        new { ApplicationUserRoleId = 2, RoleName = "Bail Bondsman" },
+                        new { ApplicationUserRoleId = 3, RoleName = "Recovery Agent" }
+                    );
                 });
 
             modelBuilder.Entity("Bhoba.Models.BailBondsman", b =>
@@ -59,10 +79,6 @@ namespace Bhoba.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AddressId");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -111,6 +127,8 @@ namespace Bhoba.Data.Migrations
 
                     b.HasKey("FelonAddressId");
 
+                    b.HasIndex("FelonId");
+
                     b.ToTable("FelonAddresses");
                 });
 
@@ -140,8 +158,6 @@ namespace Bhoba.Data.Migrations
                     b.Property<int>("AddressId");
 
                     b.Property<int?>("BailBondsmanId");
-
-                    b.Property<DateTime>("DateOfBirth");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -339,26 +355,25 @@ namespace Bhoba.Data.Migrations
 
                     b.Property<int>("AddressId");
 
+                    b.Property<int>("ApplicationUserRoleId");
+
                     b.Property<string>("FirstName")
                         .IsRequired();
-
-                    b.Property<bool>("IsBondsman");
 
                     b.Property<string>("LastName")
                         .IsRequired();
 
                     b.HasIndex("AddressId");
 
+                    b.HasIndex("ApplicationUserRoleId");
+
                     b.ToTable("ApplicationUser");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
-                });
 
-            modelBuilder.Entity("Bhoba.Models.Address", b =>
-                {
-                    b.HasOne("Bhoba.Models.Felon")
-                        .WithMany("Addresses")
-                        .HasForeignKey("FelonId");
+                    b.HasData(
+                        new { Id = "4dca698f-9f36-4306-9cd0-6f4b1f77b169", AccessFailedCount = 0, ConcurrencyStamp = "c5d64a10-49de-4e78-9ba5-9c2a2c79988f", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEMSCgPfto4kFvwN7xpf4pAvZsnjoY9AE1pKiPkQeHbB8J9oz5yXRpqkAohY9b7NKTw==", PhoneNumberConfirmed = false, SecurityStamp = "89973a7d-b6ae-4960-8410-40cf7ce6ca8b", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                    );
                 });
 
             modelBuilder.Entity("Bhoba.Models.BailBondsman", b =>
@@ -366,6 +381,14 @@ namespace Bhoba.Data.Migrations
                     b.HasOne("Bhoba.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Bhoba.Models.FelonAddress", b =>
+                {
+                    b.HasOne("Bhoba.Models.Felon")
+                        .WithMany("Addresses")
+                        .HasForeignKey("FelonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -431,6 +454,11 @@ namespace Bhoba.Data.Migrations
                     b.HasOne("Bhoba.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bhoba.Models.ApplicationUserRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserRoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

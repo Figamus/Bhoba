@@ -23,7 +23,7 @@ namespace Bhoba.Models
         public int DateOfBirth { get; set; }
 
         [Required]
-        public List<Address> Addresses { get; set; }
+        public List<FelonAddress> Addresses { get; set; }
 
         [Required]
         public string Alias { get; set; }

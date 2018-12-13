@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Bhoba.Data;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace Bhoba.Areas.Identity.Pages.Account
@@ -22,7 +24,7 @@ namespace Bhoba.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
+        
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -41,6 +43,8 @@ namespace Bhoba.Areas.Identity.Pages.Account
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
+
+        public List<SelectListItem> UserRoleList { get; set; }
 
         public class InputModel
         {
@@ -73,13 +77,14 @@ namespace Bhoba.Areas.Identity.Pages.Account
             public Address Address { get; set; }
 
             [Required]
-            [Display(Name = "Is this account for a Bail Bond Agency?")]
-            public bool IsBondsman { get; set; }
+            [Display(Name = "Please select your account type")]
+            public int ApplicationUserRoleId { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
+            UserRoleList = _context.ApplicatonUserRoles.Select(aur => new SelectListItem(aur.RoleName, aur.ApplicationUserRoleId.ToString())).Skip(1).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -101,8 +106,8 @@ namespace Bhoba.Areas.Identity.Pages.Account
                                 FirstName = Input.FirstName,
                                 LastName = Input.LastName,
                                 AddressId = newAddress.AddressId,
-                                IsBondsman = Input.IsBondsman
-                                };
+                                ApplicationUserRoleId = Input.ApplicationUserRoleId
+                };
                 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

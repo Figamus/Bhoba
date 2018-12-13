@@ -20,9 +20,6 @@ namespace Bhoba.Models
         public string LastName { get; set; }
 
         [Required]
-        public DateTime DateOfBirth { get; set; }
-
-        [Required]
         public Address Address { get; set; }
 
         [Required]
