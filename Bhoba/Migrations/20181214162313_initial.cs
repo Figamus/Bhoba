@@ -52,21 +52,6 @@ namespace Bhoba.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FelonBounties",
-                columns: table => new
-                {
-                    FelonBountyId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BailBondsmanId = table.Column<int>(nullable: false),
-                    FelonId = table.Column<int>(nullable: false),
-                    BountyAmount = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FelonBounties", x => x.FelonBountyId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Felons",
                 columns: table => new
                 {
@@ -185,6 +170,33 @@ namespace Bhoba.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FelonAddresses_Felons_FelonId",
+                        column: x => x.FelonId,
+                        principalTable: "Felons",
+                        principalColumn: "FelonId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FelonBounties",
+                columns: table => new
+                {
+                    FelonBountyId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BailBondsmanId = table.Column<int>(nullable: false),
+                    FelonId = table.Column<int>(nullable: false),
+                    BountyAmount = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FelonBounties", x => x.FelonBountyId);
+                    table.ForeignKey(
+                        name: "FK_FelonBounties_BailBondsmans_BailBondsmanId",
+                        column: x => x.BailBondsmanId,
+                        principalTable: "BailBondsmans",
+                        principalColumn: "BailBondsmanId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FelonBounties_Felons_FelonId",
                         column: x => x.FelonId,
                         principalTable: "Felons",
                         principalColumn: "FelonId",
@@ -345,7 +357,7 @@ namespace Bhoba.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AddressId", "ApplicationUserRoleId", "FirstName", "LastName" },
-                values: new object[] { "dd05417a-60e4-4f5a-a37d-361b14ea50ef", 0, "e73f1d6a-67ef-4ca5-b7bd-68af5d0839dc", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDdoJ49SOE/iOpW7wVuZmJ5jHbSqYKthIN3FnKLbyu5xSIoK58xANCcKcpzLi6XPcg==", null, false, "5aa484b7-4666-49e1-949b-6c3fa8b9e5d0", false, "admin@admin.com", 1, 1, "admin", "admin" });
+                values: new object[] { "26d7a11c-1cf7-4cae-b182-8950e74abc33", 0, "7f61be15-e6e2-48fd-b06e-c9eab15b3443", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOgCCqd7yxFprjDLC77oNeRh9lQBLR1ZUtvEXY5D/Rx7cT36VTQIHOA6T++reSKYPA==", null, false, "a45926eb-b7cd-4622-b56a-fd62593d00b5", false, "admin@admin.com", 1, 1, "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "BailBondsmans",
@@ -366,6 +378,21 @@ namespace Bhoba.Migrations
                     { 2, 6, 2 },
                     { 3, 7, 3 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "FelonBounties",
+                columns: new[] { "FelonBountyId", "BailBondsmanId", "BountyAmount", "FelonId" },
+                values: new object[] { 1, 1, 10000.0, 1 });
+
+            migrationBuilder.InsertData(
+                table: "FelonBounties",
+                columns: new[] { "FelonBountyId", "BailBondsmanId", "BountyAmount", "FelonId" },
+                values: new object[] { 2, 2, 8000.0, 2 });
+
+            migrationBuilder.InsertData(
+                table: "FelonBounties",
+                columns: new[] { "FelonBountyId", "BailBondsmanId", "BountyAmount", "FelonId" },
+                values: new object[] { 3, 3, 6000.0, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -429,6 +456,16 @@ namespace Bhoba.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_FelonAddresses_FelonId",
                 table: "FelonAddresses",
+                column: "FelonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FelonBounties_BailBondsmanId",
+                table: "FelonBounties",
+                column: "BailBondsmanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FelonBounties_FelonId",
+                table: "FelonBounties",
                 column: "FelonId");
 
             migrationBuilder.CreateIndex(

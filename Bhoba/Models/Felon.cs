@@ -26,10 +26,7 @@ namespace Bhoba.Models
         [Required]
         public string Alias { get; set; }
 
-        [Required]
         public List<FelonAddress> FelonAddresses { get; set; }
-
-        [Required]
         public List<FelonBounty> FelonBounties { get; set; }
     }
 }

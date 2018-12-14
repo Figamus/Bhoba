@@ -11,6 +11,7 @@ namespace Bhoba.Models.FelonViewModel
         public Felon Felon { get; set; }
         public Address Address { get; set; }
         public int BailBondsmansId { get; set; }
+        public double BondAmount { get; set; }
         public List<SelectListItem> BailBondsmans { get; set; }
     }
 }

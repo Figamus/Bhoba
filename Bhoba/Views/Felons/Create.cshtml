@@ -60,6 +60,11 @@
                 <span asp-validation-for="BailBondsmansId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="BondAmount" class="control-label"></label>
+                <input asp-for="BondAmount" class="form-control" />
+                <span asp-validation-for="BondAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>

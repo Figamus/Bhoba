@@ -71,15 +71,42 @@ namespace Bhoba.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FelonId,FirstName,LastName,DateOfBirth,Alias")] Felon felon)
+        public async Task<IActionResult> Create(FelonCreateViewModel newFelon)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(felon);
+                var newAddress = new Address
+                {
+                    StreetAddress = newFelon.Address.StreetAddress,
+                    City = newFelon.Address.City,
+                    State = newFelon.Address.State,
+                    ZipCode = newFelon.Address.ZipCode
+                };
+                _context.Add(newAddress);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                _context.Add(newFelon.Felon);
+                await _context.SaveChangesAsync();
+
+                var newFelonAddress = new FelonAddress
+                {
+                    FelonId = newFelon.Felon.FelonId,
+                    AddressId = newAddress.AddressId
+                };
+                _context.Add(newFelonAddress);
+                await _context.SaveChangesAsync();
+
+                var newFelonBounty = new FelonBounty
+                {
+                    FelonId = newFelon.Felon.FelonId,
+                    BailBondsmanId = newFelon.BailBondsmansId
+                };
+                _context.Add(newFelonBounty);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Details", "Felons", new { id = newFelon.Felon.FelonId });
             }
-            return View(felon);
+            return View(newFelon);
         }
 
         // GET: Felons/Edit/5
