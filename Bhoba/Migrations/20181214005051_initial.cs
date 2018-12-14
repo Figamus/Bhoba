@@ -74,7 +74,7 @@ namespace Bhoba.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(maxLength: 255, nullable: false),
                     LastName = table.Column<string>(maxLength: 255, nullable: false),
-                    DateOfBirth = table.Column<int>(nullable: false),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
                     Alias = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -177,6 +177,12 @@ namespace Bhoba.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FelonAddresses", x => x.FelonAddressId);
+                    table.ForeignKey(
+                        name: "FK_FelonAddresses_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "AddressId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FelonAddresses_Felons_FelonId",
                         column: x => x.FelonId,
@@ -302,7 +308,19 @@ namespace Bhoba.Migrations
             migrationBuilder.InsertData(
                 table: "Addresses",
                 columns: new[] { "AddressId", "City", "State", "StreetAddress", "ZipCode" },
-                values: new object[] { 1, "Everywhere", "XX", "123 Admin Way", "12345" });
+                values: new object[,]
+                {
+                    { 1, "Everywhere", "XX", "123 Admin Way", "12345" },
+                    { 2, "Everywhere2", "XX", "223 Admin Way", "12345" },
+                    { 3, "Everywhere3", "XX", "323 Admin Way", "12345" },
+                    { 4, "Everywhere4", "XX", "423 Admin Way", "12345" },
+                    { 5, "Everywhere5", "XX", "523 Admin Way", "12345" },
+                    { 6, "Everywhere6", "XX", "623 Admin Way", "12345" },
+                    { 7, "Everywhere7", "XX", "723 Admin Way", "12345" },
+                    { 8, "Everywhere8", "XX", "823 Admin Way", "12345" },
+                    { 9, "Everywhere9", "XX", "923 Admin Way", "12345" },
+                    { 10, "Everywhere10", "XX", "1023 Admin Way", "12345" }
+                });
 
             migrationBuilder.InsertData(
                 table: "ApplicatonUserRoles",
@@ -310,14 +328,24 @@ namespace Bhoba.Migrations
                 values: new object[,]
                 {
                     { 1, "Admin" },
-                    { 2, "Bail Bondsman" },
-                    { 3, "Recovery Agent" }
+                    { 2, "Recovery Agent" },
+                    { 3, "Bail Bondsman" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AddressId", "ApplicationUserRoleId", "FirstName", "LastName" },
-                values: new object[] { "4dca698f-9f36-4306-9cd0-6f4b1f77b169", 0, "c5d64a10-49de-4e78-9ba5-9c2a2c79988f", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEMSCgPfto4kFvwN7xpf4pAvZsnjoY9AE1pKiPkQeHbB8J9oz5yXRpqkAohY9b7NKTw==", null, false, "89973a7d-b6ae-4960-8410-40cf7ce6ca8b", false, "admin@admin.com", 1, 1, "admin", "admin" });
+                values: new object[] { "9c73ee40-c196-4ea3-82dd-6ac42fb303a4", 0, "4776091e-562e-4f91-a8d6-9da0bbaa7c43", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOWNMkIpfx3IDYERT+M4GAtheCkRH7yU10U/1zCSo4kO4w4l922ZPBbPJvz4by8IeQ==", null, false, "8d9a3cb5-a10c-4450-9f75-a4de78576e1a", false, "admin@admin.com", 1, 1, "admin", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "BailBondsmans",
+                columns: new[] { "BailBondsmanId", "AddressId", "Name" },
+                values: new object[,]
+                {
+                    { 1, 2, "Hunt You Down Bailbonds, LLC" },
+                    { 2, 3, "Music City Bailbonds, LLC" },
+                    { 3, 4, "You Done Fucked Up Bailbonds, LLC" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -371,6 +399,11 @@ namespace Bhoba.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_BailBondsmans_AddressId",
                 table: "BailBondsmans",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FelonAddresses_AddressId",
+                table: "FelonAddresses",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(

@@ -16,6 +16,9 @@ namespace Bhoba.Models
         public string Name { get; set; }
 
         [Required]
+        public int AddressId { get; set; }
+
+        [Required]
         public Address Address { get; set; }
 
         public virtual ICollection<RecoveryAgent> RecoveryAgents { get; set; }

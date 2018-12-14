@@ -34,12 +34,12 @@ namespace Bhoba.Data
                 new ApplicationUserRole()
                 {
                     ApplicationUserRoleId = 2,
-                    RoleName = "Bail Bondsman"
+                    RoleName = "Recovery Agent"
                 },
                 new ApplicationUserRole()
                 {
                     ApplicationUserRoleId = 3,
-                    RoleName = "Recovery Agent"
+                    RoleName = "Bail Bondsman"
                 }
             );
 
@@ -51,6 +51,99 @@ namespace Bhoba.Data
                     City = "Everywhere",
                     State = "XX",
                     ZipCode = "12345"
+                },
+                new Address()
+                {
+                    AddressId = 2,
+                    StreetAddress = "223 Admin Way",
+                    City = "Everywhere2",
+                    State = "XX",
+                    ZipCode = "12345"
+                },
+                new Address()
+                {
+                    AddressId = 3,
+                    StreetAddress = "323 Admin Way",
+                    City = "Everywhere3",
+                    State = "XX",
+                    ZipCode = "12345"
+                },
+                new Address()
+                {
+                    AddressId = 4,
+                    StreetAddress = "423 Admin Way",
+                    City = "Everywhere4",
+                    State = "XX",
+                    ZipCode = "12345"
+                },
+                new Address()
+                {
+                    AddressId = 5,
+                    StreetAddress = "523 Admin Way",
+                    City = "Everywhere5",
+                    State = "XX",
+                    ZipCode = "12345"
+                },
+                new Address()
+                {
+                    AddressId = 6,
+                    StreetAddress = "623 Admin Way",
+                    City = "Everywhere6",
+                    State = "XX",
+                    ZipCode = "12345"
+                },
+                new Address()
+                {
+                    AddressId = 7,
+                    StreetAddress = "723 Admin Way",
+                    City = "Everywhere7",
+                    State = "XX",
+                    ZipCode = "12345"
+                },
+                new Address()
+                {
+                    AddressId = 8,
+                    StreetAddress = "823 Admin Way",
+                    City = "Everywhere8",
+                    State = "XX",
+                    ZipCode = "12345"
+                },
+                new Address()
+                {
+                    AddressId = 9,
+                    StreetAddress = "923 Admin Way",
+                    City = "Everywhere9",
+                    State = "XX",
+                    ZipCode = "12345"
+                },
+                new Address()
+                {
+                    AddressId = 10,
+                    StreetAddress= "1023 Admin Way",
+                    City = "Everywhere10",
+                    State = "XX",
+                    ZipCode = "12345"
+                }
+            );
+
+            modelBuilder.Entity<BailBondsman>().HasData(
+                new BailBondsman()
+                {
+                    BailBondsmanId = 1,
+                    Name = "Hunt You Down Bailbonds, LLC",
+                    AddressId = 2,
+                },
+                new BailBondsman()
+                {
+                    BailBondsmanId = 2,
+                    Name = "Music City Bailbonds, LLC",
+                    AddressId = 3,
+                },
+                new BailBondsman()
+                {
+                    BailBondsmanId = 3,
+                    Name = "You Done Fucked Up Bailbonds, LLC",
+                    AddressId = 4,
                 }
             );
 

@@ -1,0 +1,75 @@
+﻿@model Bhoba.Models.FelonViewModel.FelonCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Felon</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Felon.FirstName" class="control-label"></label>
+                <input asp-for="Felon.FirstName" class="form-control" />
+                <span asp-validation-for="Felon.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Felon.LastName" class="control-label"></label>
+                <input asp-for="Felon.LastName" class="form-control" />
+                <span asp-validation-for="Felon.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Felon.DateOfBirth" class="control-label"></label>
+                <input asp-for="Felon.DateOfBirth" class="form-control" />
+                <span asp-validation-for="Felon.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Felon.Alias" class="control-label"></label>
+                <input asp-for="Felon.Alias" class="form-control" />
+                <span asp-validation-for="Felon.Alias" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label asp-for="Address.StreetAddress"></label>
+                    <input asp-for="Address.StreetAddress" class="form-control" />
+                    <span asp-validation-for="Address.StreetAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.City"></label>
+                    <input asp-for="Address.City" class="form-control" />
+                    <span asp-validation-for="Address.City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.State"></label>
+                    <input asp-for="Address.State" class="form-control" />
+                    <span asp-validation-for="Address.State" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.ZipCode"></label>
+                    <input asp-for="Address.ZipCode" class="form-control" />
+                    <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="BailBondsmansId" class="control-label"></label>
+                <select asp-for="BailBondsmansId" class="form-control" asp-items="@Model.BailBondsmans"></select>
+                <span asp-validation-for="BailBondsmansId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bhoba.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181213191203_initial")]
+    [Migration("20181214005051_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +48,16 @@ namespace Bhoba.Migrations
                     b.ToTable("Addresses");
 
                     b.HasData(
-                        new { AddressId = 1, City = "Everywhere", State = "XX", StreetAddress = "123 Admin Way", ZipCode = "12345" }
+                        new { AddressId = 1, City = "Everywhere", State = "XX", StreetAddress = "123 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 2, City = "Everywhere2", State = "XX", StreetAddress = "223 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 3, City = "Everywhere3", State = "XX", StreetAddress = "323 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 4, City = "Everywhere4", State = "XX", StreetAddress = "423 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 5, City = "Everywhere5", State = "XX", StreetAddress = "523 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 6, City = "Everywhere6", State = "XX", StreetAddress = "623 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 7, City = "Everywhere7", State = "XX", StreetAddress = "723 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 8, City = "Everywhere8", State = "XX", StreetAddress = "823 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 9, City = "Everywhere9", State = "XX", StreetAddress = "923 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 10, City = "Everywhere10", State = "XX", StreetAddress = "1023 Admin Way", ZipCode = "12345" }
                     );
                 });
 
@@ -67,8 +76,8 @@ namespace Bhoba.Migrations
 
                     b.HasData(
                         new { ApplicationUserRoleId = 1, RoleName = "Admin" },
-                        new { ApplicationUserRoleId = 2, RoleName = "Bail Bondsman" },
-                        new { ApplicationUserRoleId = 3, RoleName = "Recovery Agent" }
+                        new { ApplicationUserRoleId = 2, RoleName = "Recovery Agent" },
+                        new { ApplicationUserRoleId = 3, RoleName = "Bail Bondsman" }
                     );
                 });
 
@@ -89,6 +98,12 @@ namespace Bhoba.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("BailBondsmans");
+
+                    b.HasData(
+                        new { BailBondsmanId = 1, AddressId = 2, Name = "Hunt You Down Bailbonds, LLC" },
+                        new { BailBondsmanId = 2, AddressId = 3, Name = "Music City Bailbonds, LLC" },
+                        new { BailBondsmanId = 3, AddressId = 4, Name = "You Done Fucked Up Bailbonds, LLC" }
+                    );
                 });
 
             modelBuilder.Entity("Bhoba.Models.Felon", b =>
@@ -100,7 +115,7 @@ namespace Bhoba.Migrations
                     b.Property<string>("Alias")
                         .IsRequired();
 
-                    b.Property<int>("DateOfBirth");
+                    b.Property<DateTime>("DateOfBirth");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -126,6 +141,8 @@ namespace Bhoba.Migrations
                     b.Property<int>("FelonId");
 
                     b.HasKey("FelonAddressId");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("FelonId");
 
@@ -372,7 +389,7 @@ namespace Bhoba.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.HasData(
-                        new { Id = "4dca698f-9f36-4306-9cd0-6f4b1f77b169", AccessFailedCount = 0, ConcurrencyStamp = "c5d64a10-49de-4e78-9ba5-9c2a2c79988f", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEMSCgPfto4kFvwN7xpf4pAvZsnjoY9AE1pKiPkQeHbB8J9oz5yXRpqkAohY9b7NKTw==", PhoneNumberConfirmed = false, SecurityStamp = "89973a7d-b6ae-4960-8410-40cf7ce6ca8b", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                        new { Id = "9c73ee40-c196-4ea3-82dd-6ac42fb303a4", AccessFailedCount = 0, ConcurrencyStamp = "4776091e-562e-4f91-a8d6-9da0bbaa7c43", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEOWNMkIpfx3IDYERT+M4GAtheCkRH7yU10U/1zCSo4kO4w4l922ZPBbPJvz4by8IeQ==", PhoneNumberConfirmed = false, SecurityStamp = "8d9a3cb5-a10c-4450-9f75-a4de78576e1a", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
                     );
                 });
 
@@ -386,8 +403,13 @@ namespace Bhoba.Migrations
 
             modelBuilder.Entity("Bhoba.Models.FelonAddress", b =>
                 {
+                    b.HasOne("Bhoba.Models.Address")
+                        .WithMany("FelonAddresses")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Bhoba.Models.Felon")
-                        .WithMany("Addresses")
+                        .WithMany("FelonAddresses")
                         .HasForeignKey("FelonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
