@@ -147,6 +147,54 @@ namespace Bhoba.Data
                 }
             );
 
+            modelBuilder.Entity<Felon>().HasData(
+                new Felon()
+                {
+                    FelonId = 1,
+                    FirstName = "John",
+                    LastName = "Doe",
+                    DateOfBirth = new DateTime(1917, 4, 1),
+                    Alias = "Bobo"
+                },
+                new Felon()
+                {
+                    FelonId = 2,
+                    FirstName = "Jane",
+                    LastName = "Doe",
+                    DateOfBirth = new DateTime(1987, 3, 18),
+                    Alias = "Bitch"
+                },
+                new Felon()
+                {
+                    FelonId = 3,
+                    FirstName = "Jim",
+                    LastName = "Bob",
+                    DateOfBirth = new DateTime(1997, 1, 22),
+                    Alias = "James"
+                }
+            );
+
+            modelBuilder.Entity<FelonAddress>().HasData(
+                new FelonAddress()
+                {
+                    FelonAddressId = 1,
+                    FelonId = 1,
+                    AddressId = 5,
+                },
+                new FelonAddress()
+                {
+                    FelonAddressId = 2,
+                    FelonId = 2,
+                    AddressId = 6,
+                },
+                new FelonAddress()
+                {
+                    FelonAddressId = 3,
+                    FelonId = 3,
+                    AddressId = 7,
+                }
+            );
+
             ApplicationUser user = new ApplicationUser
             {
                 FirstName = "admin",

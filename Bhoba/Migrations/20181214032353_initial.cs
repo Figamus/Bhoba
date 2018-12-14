@@ -333,9 +333,19 @@ namespace Bhoba.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Felons",
+                columns: new[] { "FelonId", "Alias", "DateOfBirth", "FirstName", "LastName" },
+                values: new object[,]
+                {
+                    { 1, "Bobo", new DateTime(1917, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "John", "Doe" },
+                    { 2, "Bitch", new DateTime(1987, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jane", "Doe" },
+                    { 3, "James", new DateTime(1997, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jim", "Bob" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AddressId", "ApplicationUserRoleId", "FirstName", "LastName" },
-                values: new object[] { "9c73ee40-c196-4ea3-82dd-6ac42fb303a4", 0, "4776091e-562e-4f91-a8d6-9da0bbaa7c43", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOWNMkIpfx3IDYERT+M4GAtheCkRH7yU10U/1zCSo4kO4w4l922ZPBbPJvz4by8IeQ==", null, false, "8d9a3cb5-a10c-4450-9f75-a4de78576e1a", false, "admin@admin.com", 1, 1, "admin", "admin" });
+                values: new object[] { "5d772afd-08ec-4ab0-92d4-20655c931581", 0, "cf839997-028e-4030-82ba-9da829075222", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEG6Xhcs+6c+t5HP0O2DxwjThfsXiF5Kcnp4a6XRQVEKJFnBsXa9iwmj9x9EBtq70Fg==", null, false, "8c09b32d-df11-41be-b9f0-a9c0baf145f4", false, "admin@admin.com", 1, 1, "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "BailBondsmans",
@@ -345,6 +355,16 @@ namespace Bhoba.Migrations
                     { 1, 2, "Hunt You Down Bailbonds, LLC" },
                     { 2, 3, "Music City Bailbonds, LLC" },
                     { 3, 4, "You Done Fucked Up Bailbonds, LLC" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FelonAddresses",
+                columns: new[] { "FelonAddressId", "AddressId", "FelonId" },
+                values: new object[,]
+                {
+                    { 1, 5, 1 },
+                    { 2, 6, 2 },
+                    { 3, 7, 3 }
                 });
 
             migrationBuilder.CreateIndex(
