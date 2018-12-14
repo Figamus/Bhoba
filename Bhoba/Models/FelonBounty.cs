@@ -19,5 +19,8 @@ namespace Bhoba.Models
 
         [Required]
         public double BountyAmount { get; set; }
+
+        public BailBondsman BailBondsman { get; set; }
+        public Felon Felon { get; set; }
     }
 }

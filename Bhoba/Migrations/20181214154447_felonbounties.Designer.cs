@@ -4,14 +4,16 @@ using Bhoba.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bhoba.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181214154447_felonbounties")]
+    partial class felonbounties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,7 +411,7 @@ namespace Bhoba.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.HasData(
-                        new { Id = "459a3d05-a6e0-4877-ab7b-bfd819fa545d", AccessFailedCount = 0, ConcurrencyStamp = "25db57e4-95a6-4dbc-93c8-5eb488f53f22", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEFPLL2sh/Hl/xZ0yR8KR/HclAaDOhwWuyBRVtOonn0MJc/YDeWxZ42IdHpBDtFAqGA==", PhoneNumberConfirmed = false, SecurityStamp = "6f8d3c6f-9ced-4d26-a42c-799b54cc6753", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                        new { Id = "44923ead-821e-4366-9c17-44781309b06c", AccessFailedCount = 0, ConcurrencyStamp = "4e75fc0e-1b04-4fb6-9c5a-fb7f37664932", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEFX3eJ1lL6yZrmYziYB171u/UMTU8kPwJmqNHmMytvD5qRh+XBzfyneIJIyW4mfzcQ==", PhoneNumberConfirmed = false, SecurityStamp = "4d2f801d-1660-4955-86ab-c0a4374d94a4", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
                     );
                 });
 
@@ -442,7 +444,7 @@ namespace Bhoba.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Bhoba.Models.Felon", "Felon")
-                        .WithMany("FelonBounties")
+                        .WithMany()
                         .HasForeignKey("FelonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

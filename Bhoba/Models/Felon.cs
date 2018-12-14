@@ -20,12 +20,16 @@ namespace Bhoba.Models
         public string LastName { get; set; }
 
         [Required]
-        public int DateOfBirth { get; set; }
-
-        [Required]
-        public List<FelonAddress> Addresses { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
         public string Alias { get; set; }
+
+        [Required]
+        public List<FelonAddress> FelonAddresses { get; set; }
+
+        [Required]
+        public List<FelonBounty> FelonBounties { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bhoba.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181213191203_initial")]
-    partial class initial
+    [Migration("20181214154703_felonBountyColumn")]
+    partial class felonBountyColumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,7 +48,16 @@ namespace Bhoba.Migrations
                     b.ToTable("Addresses");
 
                     b.HasData(
-                        new { AddressId = 1, City = "Everywhere", State = "XX", StreetAddress = "123 Admin Way", ZipCode = "12345" }
+                        new { AddressId = 1, City = "Everywhere", State = "XX", StreetAddress = "123 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 2, City = "Everywhere2", State = "XX", StreetAddress = "223 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 3, City = "Everywhere3", State = "XX", StreetAddress = "323 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 4, City = "Everywhere4", State = "XX", StreetAddress = "423 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 5, City = "Everywhere5", State = "XX", StreetAddress = "523 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 6, City = "Everywhere6", State = "XX", StreetAddress = "623 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 7, City = "Everywhere7", State = "XX", StreetAddress = "723 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 8, City = "Everywhere8", State = "XX", StreetAddress = "823 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 9, City = "Everywhere9", State = "XX", StreetAddress = "923 Admin Way", ZipCode = "12345" },
+                        new { AddressId = 10, City = "Everywhere10", State = "XX", StreetAddress = "1023 Admin Way", ZipCode = "12345" }
                     );
                 });
 
@@ -67,8 +76,8 @@ namespace Bhoba.Migrations
 
                     b.HasData(
                         new { ApplicationUserRoleId = 1, RoleName = "Admin" },
-                        new { ApplicationUserRoleId = 2, RoleName = "Bail Bondsman" },
-                        new { ApplicationUserRoleId = 3, RoleName = "Recovery Agent" }
+                        new { ApplicationUserRoleId = 2, RoleName = "Recovery Agent" },
+                        new { ApplicationUserRoleId = 3, RoleName = "Bail Bondsman" }
                     );
                 });
 
@@ -89,6 +98,12 @@ namespace Bhoba.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("BailBondsmans");
+
+                    b.HasData(
+                        new { BailBondsmanId = 1, AddressId = 2, Name = "Hunt You Down Bailbonds, LLC" },
+                        new { BailBondsmanId = 2, AddressId = 3, Name = "Music City Bailbonds, LLC" },
+                        new { BailBondsmanId = 3, AddressId = 4, Name = "You Done Fucked Up Bailbonds, LLC" }
+                    );
                 });
 
             modelBuilder.Entity("Bhoba.Models.Felon", b =>
@@ -100,7 +115,7 @@ namespace Bhoba.Migrations
                     b.Property<string>("Alias")
                         .IsRequired();
 
-                    b.Property<int>("DateOfBirth");
+                    b.Property<DateTime>("DateOfBirth");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -113,6 +128,12 @@ namespace Bhoba.Migrations
                     b.HasKey("FelonId");
 
                     b.ToTable("Felons");
+
+                    b.HasData(
+                        new { FelonId = 1, Alias = "Bobo", DateOfBirth = new DateTime(1917, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "John", LastName = "Doe" },
+                        new { FelonId = 2, Alias = "Bitch", DateOfBirth = new DateTime(1987, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Jane", LastName = "Doe" },
+                        new { FelonId = 3, Alias = "James", DateOfBirth = new DateTime(1997, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Jim", LastName = "Bob" }
+                    );
                 });
 
             modelBuilder.Entity("Bhoba.Models.FelonAddress", b =>
@@ -127,9 +148,17 @@ namespace Bhoba.Migrations
 
                     b.HasKey("FelonAddressId");
 
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("FelonId");
 
                     b.ToTable("FelonAddresses");
+
+                    b.HasData(
+                        new { FelonAddressId = 1, AddressId = 5, FelonId = 1 },
+                        new { FelonAddressId = 2, AddressId = 6, FelonId = 2 },
+                        new { FelonAddressId = 3, AddressId = 7, FelonId = 3 }
+                    );
                 });
 
             modelBuilder.Entity("Bhoba.Models.FelonBounty", b =>
@@ -146,7 +175,17 @@ namespace Bhoba.Migrations
 
                     b.HasKey("FelonBountyId");
 
+                    b.HasIndex("BailBondsmanId");
+
+                    b.HasIndex("FelonId");
+
                     b.ToTable("FelonBounties");
+
+                    b.HasData(
+                        new { FelonBountyId = 1, BailBondsmanId = 1, BountyAmount = 10000.0, FelonId = 1 },
+                        new { FelonBountyId = 2, BailBondsmanId = 2, BountyAmount = 8000.0, FelonId = 2 },
+                        new { FelonBountyId = 3, BailBondsmanId = 3, BountyAmount = 6000.0, FelonId = 1 }
+                    );
                 });
 
             modelBuilder.Entity("Bhoba.Models.RecoveryAgent", b =>
@@ -372,7 +411,7 @@ namespace Bhoba.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.HasData(
-                        new { Id = "4dca698f-9f36-4306-9cd0-6f4b1f77b169", AccessFailedCount = 0, ConcurrencyStamp = "c5d64a10-49de-4e78-9ba5-9c2a2c79988f", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEMSCgPfto4kFvwN7xpf4pAvZsnjoY9AE1pKiPkQeHbB8J9oz5yXRpqkAohY9b7NKTw==", PhoneNumberConfirmed = false, SecurityStamp = "89973a7d-b6ae-4960-8410-40cf7ce6ca8b", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                        new { Id = "459a3d05-a6e0-4877-ab7b-bfd819fa545d", AccessFailedCount = 0, ConcurrencyStamp = "25db57e4-95a6-4dbc-93c8-5eb488f53f22", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEFPLL2sh/Hl/xZ0yR8KR/HclAaDOhwWuyBRVtOonn0MJc/YDeWxZ42IdHpBDtFAqGA==", PhoneNumberConfirmed = false, SecurityStamp = "6f8d3c6f-9ced-4d26-a42c-799b54cc6753", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
                     );
                 });
 
@@ -386,8 +425,26 @@ namespace Bhoba.Migrations
 
             modelBuilder.Entity("Bhoba.Models.FelonAddress", b =>
                 {
-                    b.HasOne("Bhoba.Models.Felon")
-                        .WithMany("Addresses")
+                    b.HasOne("Bhoba.Models.Address", "Address")
+                        .WithMany("FelonAddresses")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bhoba.Models.Felon", "Felon")
+                        .WithMany("FelonAddresses")
+                        .HasForeignKey("FelonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Bhoba.Models.FelonBounty", b =>
+                {
+                    b.HasOne("Bhoba.Models.BailBondsman", "BailBondsman")
+                        .WithMany()
+                        .HasForeignKey("BailBondsmanId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bhoba.Models.Felon", "Felon")
+                        .WithMany("FelonBounties")
                         .HasForeignKey("FelonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

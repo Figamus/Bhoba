@@ -4,14 +4,16 @@ using Bhoba.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bhoba.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181214145433_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,17 +175,7 @@ namespace Bhoba.Migrations
 
                     b.HasKey("FelonBountyId");
 
-                    b.HasIndex("BailBondsmanId");
-
-                    b.HasIndex("FelonId");
-
                     b.ToTable("FelonBounties");
-
-                    b.HasData(
-                        new { FelonBountyId = 1, BailBondsmanId = 1, BountyAmount = 10000.0, FelonId = 1 },
-                        new { FelonBountyId = 2, BailBondsmanId = 2, BountyAmount = 8000.0, FelonId = 2 },
-                        new { FelonBountyId = 3, BailBondsmanId = 3, BountyAmount = 6000.0, FelonId = 1 }
-                    );
                 });
 
             modelBuilder.Entity("Bhoba.Models.RecoveryAgent", b =>
@@ -409,7 +401,7 @@ namespace Bhoba.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.HasData(
-                        new { Id = "459a3d05-a6e0-4877-ab7b-bfd819fa545d", AccessFailedCount = 0, ConcurrencyStamp = "25db57e4-95a6-4dbc-93c8-5eb488f53f22", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEFPLL2sh/Hl/xZ0yR8KR/HclAaDOhwWuyBRVtOonn0MJc/YDeWxZ42IdHpBDtFAqGA==", PhoneNumberConfirmed = false, SecurityStamp = "6f8d3c6f-9ced-4d26-a42c-799b54cc6753", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                        new { Id = "dd05417a-60e4-4f5a-a37d-361b14ea50ef", AccessFailedCount = 0, ConcurrencyStamp = "e73f1d6a-67ef-4ca5-b7bd-68af5d0839dc", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEDdoJ49SOE/iOpW7wVuZmJ5jHbSqYKthIN3FnKLbyu5xSIoK58xANCcKcpzLi6XPcg==", PhoneNumberConfirmed = false, SecurityStamp = "5aa484b7-4666-49e1-949b-6c3fa8b9e5d0", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
                     );
                 });
 
@@ -430,19 +422,6 @@ namespace Bhoba.Migrations
 
                     b.HasOne("Bhoba.Models.Felon", "Felon")
                         .WithMany("FelonAddresses")
-                        .HasForeignKey("FelonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Bhoba.Models.FelonBounty", b =>
-                {
-                    b.HasOne("Bhoba.Models.BailBondsman", "BailBondsman")
-                        .WithMany()
-                        .HasForeignKey("BailBondsmanId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Bhoba.Models.Felon", "Felon")
-                        .WithMany("FelonBounties")
                         .HasForeignKey("FelonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
