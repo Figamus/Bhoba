@@ -409,7 +409,7 @@ namespace Bhoba.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.HasData(
-                        new { Id = "459a3d05-a6e0-4877-ab7b-bfd819fa545d", AccessFailedCount = 0, ConcurrencyStamp = "25db57e4-95a6-4dbc-93c8-5eb488f53f22", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEFPLL2sh/Hl/xZ0yR8KR/HclAaDOhwWuyBRVtOonn0MJc/YDeWxZ42IdHpBDtFAqGA==", PhoneNumberConfirmed = false, SecurityStamp = "6f8d3c6f-9ced-4d26-a42c-799b54cc6753", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                        new { Id = "26d7a11c-1cf7-4cae-b182-8950e74abc33", AccessFailedCount = 0, ConcurrencyStamp = "7f61be15-e6e2-48fd-b06e-c9eab15b3443", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEOgCCqd7yxFprjDLC77oNeRh9lQBLR1ZUtvEXY5D/Rx7cT36VTQIHOA6T++reSKYPA==", PhoneNumberConfirmed = false, SecurityStamp = "a45926eb-b7cd-4622-b56a-fd62593d00b5", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
                     );
                 });
 
@@ -437,7 +437,7 @@ namespace Bhoba.Migrations
             modelBuilder.Entity("Bhoba.Models.FelonBounty", b =>
                 {
                     b.HasOne("Bhoba.Models.BailBondsman", "BailBondsman")
-                        .WithMany()
+                        .WithMany("FelonBounties")
                         .HasForeignKey("BailBondsmanId")
                         .OnDelete(DeleteBehavior.Cascade);
 

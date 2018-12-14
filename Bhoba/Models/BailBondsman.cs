@@ -22,5 +22,6 @@ namespace Bhoba.Models
         public Address Address { get; set; }
 
         public virtual ICollection<RecoveryAgent> RecoveryAgents { get; set; }
+        public List<FelonBounty> FelonBounties { get; set; }
     }
 }
