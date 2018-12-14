@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.FelonAddresses)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FelonBounties)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -41,6 +44,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FelonAddresses.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FelonBounties.Count)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.FelonId">Edit</a> |

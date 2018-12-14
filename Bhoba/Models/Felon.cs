@@ -28,5 +28,8 @@ namespace Bhoba.Models
 
         [Required]
         public List<FelonAddress> FelonAddresses { get; set; }
+
+        [Required]
+        public List<FelonBounty> FelonBounties { get; set; }
     }
 }
