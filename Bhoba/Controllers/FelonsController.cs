@@ -25,7 +25,8 @@ namespace Bhoba.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Felons.ToListAsync());
+            var felons = await _context.Felons.Include(f => f.FelonAddresses).ToListAsync();
+            return View(felons);
         }
 
         // GET: Felons/Details/5

@@ -16,5 +16,8 @@ namespace Bhoba.Models
 
         [Required]
         public int FelonId { get; set; }
+
+        public Address Address { get; set; }
+        public Felon Felon { get; set; }
     }
 }

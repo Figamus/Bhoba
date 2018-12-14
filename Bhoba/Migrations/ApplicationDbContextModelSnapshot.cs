@@ -399,7 +399,7 @@ namespace Bhoba.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.HasData(
-                        new { Id = "5d772afd-08ec-4ab0-92d4-20655c931581", AccessFailedCount = 0, ConcurrencyStamp = "cf839997-028e-4030-82ba-9da829075222", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEG6Xhcs+6c+t5HP0O2DxwjThfsXiF5Kcnp4a6XRQVEKJFnBsXa9iwmj9x9EBtq70Fg==", PhoneNumberConfirmed = false, SecurityStamp = "8c09b32d-df11-41be-b9f0-a9c0baf145f4", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                        new { Id = "dd05417a-60e4-4f5a-a37d-361b14ea50ef", AccessFailedCount = 0, ConcurrencyStamp = "e73f1d6a-67ef-4ca5-b7bd-68af5d0839dc", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEDdoJ49SOE/iOpW7wVuZmJ5jHbSqYKthIN3FnKLbyu5xSIoK58xANCcKcpzLi6XPcg==", PhoneNumberConfirmed = false, SecurityStamp = "5aa484b7-4666-49e1-949b-6c3fa8b9e5d0", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
                     );
                 });
 
@@ -413,12 +413,12 @@ namespace Bhoba.Migrations
 
             modelBuilder.Entity("Bhoba.Models.FelonAddress", b =>
                 {
-                    b.HasOne("Bhoba.Models.Address")
+                    b.HasOne("Bhoba.Models.Address", "Address")
                         .WithMany("FelonAddresses")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Bhoba.Models.Felon")
+                    b.HasOne("Bhoba.Models.Felon", "Felon")
                         .WithMany("FelonAddresses")
                         .HasForeignKey("FelonId")
                         .OnDelete(DeleteBehavior.Cascade);

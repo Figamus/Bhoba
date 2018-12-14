@@ -345,7 +345,7 @@ namespace Bhoba.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AddressId", "ApplicationUserRoleId", "FirstName", "LastName" },
-                values: new object[] { "5d772afd-08ec-4ab0-92d4-20655c931581", 0, "cf839997-028e-4030-82ba-9da829075222", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEG6Xhcs+6c+t5HP0O2DxwjThfsXiF5Kcnp4a6XRQVEKJFnBsXa9iwmj9x9EBtq70Fg==", null, false, "8c09b32d-df11-41be-b9f0-a9c0baf145f4", false, "admin@admin.com", 1, 1, "admin", "admin" });
+                values: new object[] { "dd05417a-60e4-4f5a-a37d-361b14ea50ef", 0, "e73f1d6a-67ef-4ca5-b7bd-68af5d0839dc", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDdoJ49SOE/iOpW7wVuZmJ5jHbSqYKthIN3FnKLbyu5xSIoK58xANCcKcpzLi6XPcg==", null, false, "5aa484b7-4666-49e1-949b-6c3fa8b9e5d0", false, "admin@admin.com", 1, 1, "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "BailBondsmans",
