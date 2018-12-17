@@ -104,6 +104,7 @@ namespace Bhoba.Controllers
 
             if (ModelState.IsValid)
             {
+                var felonaddresses = await _context.FelonAddresses.Where(fa => fa.AddressId == address.AddressId).FirstOrDefaultAsync();
                 try
                 {
                     _context.Update(address);
@@ -120,7 +121,7 @@ namespace Bhoba.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Felons", new { id = felonaddresses.FelonId });
             }
             return View(address);
         }
