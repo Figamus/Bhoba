@@ -25,7 +25,11 @@ namespace Bhoba.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var felons = await _context.Felons.Include(f => f.FelonAddresses).Include(f => f.FelonBounties).ToListAsync();
+            var felons = await _context.Felons
+                        .Include(f => f.FelonAddresses)
+                        .Include(f => f.FelonBounties)
+                        .ToListAsync();
+
             return View(felons);
         }
 
@@ -37,15 +41,31 @@ namespace Bhoba.Controllers
             {
                 return NotFound();
             }
+            FelonDetailsViewModel createview = new FelonDetailsViewModel();
 
-            var felon = await _context.Felons
-                .FirstOrDefaultAsync(m => m.FelonId == id);
-            if (felon == null)
+            createview.Felon = await _context.Felons
+                        .Include(f => f.FelonAddresses)
+                        .Include(f => f.FelonBounties)
+                        .FirstOrDefaultAsync(m => m.FelonId == id);
+
+            foreach (var item in createview.Felon.FelonAddresses)
+            {
+                Address addresses = _context.Addresses.Where(ad => ad.AddressId == item.AddressId).FirstOrDefault();
+                createview.Addresses.Add(addresses);
+            }
+
+            foreach (var item in createview.Felon.FelonBounties)
+            {
+                BailBondsman bonds = _context.BailBondsmans.Where(bb => bb.BailBondsmanId == item.BailBondsmanId).FirstOrDefault();
+                createview.BailBondsmen.Add(bonds);
+            }
+
+            if (createview.Felon == null)
             {
                 return NotFound();
             }
 
-            return View(felon);
+            return View(createview);
         }
 
         // GET: Search Felons
