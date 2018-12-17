@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bhoba.Data;
 using Bhoba.Models;
+using Bhoba.Models.AddressViewModel;
 
 namespace Bhoba.Controllers
 {
@@ -32,15 +33,26 @@ namespace Bhoba.Controllers
             {
                 return NotFound();
             }
+            AddressDetailsViewModel createview = new AddressDetailsViewModel();
 
             var address = await _context.Addresses
+                .Include(f => f.FelonAddresses)
                 .FirstOrDefaultAsync(m => m.AddressId == id);
+
+            createview.Address = address;
+
+            foreach (var item in createview.Address.FelonAddresses)
+            {
+                Felon felons = _context.Felons.Where( f => f.FelonId == item.FelonId).FirstOrDefault();
+                createview.Felons.Add(felons);
+            }
+
             if (address == null)
             {
                 return NotFound();
             }
 
-            return View(address);
+            return View(createview);
         }
 
         // GET: Addresses/Create
