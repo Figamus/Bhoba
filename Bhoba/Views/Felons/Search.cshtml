@@ -1,0 +1,65 @@
+﻿@model Bhoba.Models.FelonViewModel.FelonSearchViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Search Results for "@Model.Search"</h2>
+<hr />
+<p>Showing all Products related to "@Model.Search"</p>
+<hr />
+@if (Model.Felons.Count() == 0)
+{
+    <p>No Products match "@Model.Search"</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Alias
+                </th>
+                <th>
+                    FelonAddress
+                </th>
+                <th>
+                    FelonBounty
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Felons)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alias)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FelonAddresses.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FelonBounties.Count)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FelonId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.FelonId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.FelonId">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

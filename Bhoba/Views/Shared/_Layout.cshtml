@@ -43,6 +43,14 @@
                     }
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li>
+                            <form asp-controller="Felons" asp-action="Search" method="get" class="nav-search">
+                                <input type="text" name="search" class="input-sm" placeholder="Search for a felon" />
+                            </form>
+                        </li>
+                    }
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
