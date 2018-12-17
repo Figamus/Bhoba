@@ -48,6 +48,19 @@ namespace Bhoba.Controllers
             return View(felon);
         }
 
+        // GET: Search Felons
+        public async Task<IActionResult> Search(string search)
+        {
+            FelonSearchViewModel createview = new FelonSearchViewModel();
+
+            createview.Search = search;
+            createview.Felons = await _context.Felons
+                                        .Where(felon => felon.FirstName.Contains(search) || felon.LastName.Contains(search) || (felon.FirstName + " " + felon.LastName).Contains(search))
+                                        .Include(f => f.FelonAddresses).Include(f => f.FelonBounties).ToListAsync();
+
+            return View(createview);
+        }
+
         // GET: Felons/Create
         [Authorize]
         public IActionResult Create()
