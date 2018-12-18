@@ -167,10 +167,12 @@ namespace Bhoba.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var felonaddresses = await _context.FelonAddresses.Where(fa => fa.AddressId == id).FirstOrDefaultAsync();
+
             var address = await _context.Addresses.FindAsync(id);
             _context.Addresses.Remove(address);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Felons", new { id = felonaddresses.FelonId });
         }
 
         private bool AddressExists(int id)
