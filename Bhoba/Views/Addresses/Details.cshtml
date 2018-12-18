@@ -1,4 +1,4 @@
-﻿@model Bhoba.Models.Address
+﻿@model Bhoba.Models.AddressViewModel.AddressDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -9,34 +9,67 @@
 <div>
     <h4>Address</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.StreetAddress)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StreetAddress)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.State)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ZipCode)
-        </dd>
-    </dl>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Address.StreetAddress)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address.StreetAddress)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address.City)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address.City)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address.State)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address.State)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address.ZipCode)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address.ZipCode)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6" style="height: 300px;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Felons.Single().FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Felons.Single().LastName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Felons)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            <a asp-controller="Addresses" asp-action="Details" asp-route-id="@item.FelonId">Details</a> |
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.AddressId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Address.AddressId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
