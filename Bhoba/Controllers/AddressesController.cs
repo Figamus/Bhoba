@@ -43,21 +43,15 @@ namespace Bhoba.Controllers
 
 
             createview.Felons = await _context.Addresses
-                                                .Where(ad => ad.StreetAddress == address.StreetAddress
-                                                    && ad.City == address.City
-                                                    && ad.State == address.State
-                                                    && ad.ZipCode == address.ZipCode)
+                                                .Where(ad => ad.StreetAddress.ToUpper().Trim() == address.StreetAddress.ToUpper().Trim()
+                                                    && ad.City.ToUpper().Trim() == address.City.ToUpper().Trim()
+                                                    && ad.State.ToUpper().Trim() == address.State.ToUpper().Trim()
+                                                    && ad.ZipCode.ToUpper().Trim() == address.ZipCode.ToUpper().Trim())
                                                 .Include(ad => ad.FelonAddresses)
                                                     .ThenInclude(fa => fa.Felon)
                                                 .SelectMany(ad => ad.FelonAddresses)
                                                 .Select(fa => fa.Felon)
                                                 .ToListAsync();
-
-            /*foreach (var item in createview.Address.FelonAddresses)
-            {
-                Felon felons = _context.Felons.Where( f => f.FelonId == item.FelonId).FirstOrDefault();
-                createview.Felons.Add(felons);
-            }*/
 
             if (address == null)
             {
