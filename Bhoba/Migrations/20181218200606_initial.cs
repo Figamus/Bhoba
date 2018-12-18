@@ -184,7 +184,8 @@ namespace Bhoba.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BailBondsmanId = table.Column<int>(nullable: false),
                     FelonId = table.Column<int>(nullable: false),
-                    BountyAmount = table.Column<double>(nullable: false)
+                    BountyAmount = table.Column<double>(nullable: false),
+                    BondClosed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -357,7 +358,7 @@ namespace Bhoba.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AddressId", "ApplicationUserRoleId", "FirstName", "LastName" },
-                values: new object[] { "26d7a11c-1cf7-4cae-b182-8950e74abc33", 0, "7f61be15-e6e2-48fd-b06e-c9eab15b3443", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOgCCqd7yxFprjDLC77oNeRh9lQBLR1ZUtvEXY5D/Rx7cT36VTQIHOA6T++reSKYPA==", null, false, "a45926eb-b7cd-4622-b56a-fd62593d00b5", false, "admin@admin.com", 1, 1, "admin", "admin" });
+                values: new object[] { "7c2576b7-5895-48e4-ac40-8f8fa5286c4e", 0, "d647ae98-1db5-4863-a7f8-4b29b1713f6e", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEACck8YdaBP91JB17Qq9nqFcjgepEL5MO08v+i4VSe/WdPkEPwrEQzLPJ3QJVm0Pbg==", null, false, "6105ca11-1687-4f28-9a7d-808d406a773c", false, "admin@admin.com", 1, 1, "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "BailBondsmans",
@@ -381,18 +382,18 @@ namespace Bhoba.Migrations
 
             migrationBuilder.InsertData(
                 table: "FelonBounties",
-                columns: new[] { "FelonBountyId", "BailBondsmanId", "BountyAmount", "FelonId" },
-                values: new object[] { 1, 1, 10000.0, 1 });
+                columns: new[] { "FelonBountyId", "BailBondsmanId", "BondClosed", "BountyAmount", "FelonId" },
+                values: new object[] { 1, 1, false, 10000.0, 1 });
 
             migrationBuilder.InsertData(
                 table: "FelonBounties",
-                columns: new[] { "FelonBountyId", "BailBondsmanId", "BountyAmount", "FelonId" },
-                values: new object[] { 2, 2, 8000.0, 2 });
+                columns: new[] { "FelonBountyId", "BailBondsmanId", "BondClosed", "BountyAmount", "FelonId" },
+                values: new object[] { 2, 2, false, 8000.0, 2 });
 
             migrationBuilder.InsertData(
                 table: "FelonBounties",
-                columns: new[] { "FelonBountyId", "BailBondsmanId", "BountyAmount", "FelonId" },
-                values: new object[] { 3, 3, 6000.0, 1 });
+                columns: new[] { "FelonBountyId", "BailBondsmanId", "BondClosed", "BountyAmount", "FelonId" },
+                values: new object[] { 3, 3, true, 6000.0, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

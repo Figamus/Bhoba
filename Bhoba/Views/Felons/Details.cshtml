@@ -40,37 +40,80 @@
                 </dl>
             </div>
             <div class="col-md-6" style="height: 300px;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.BailBondsmen.Single().Name)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Felon.FelonBounties.Single().BountyAmount)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Felon.FelonBounties)
-                        {
+                <div>
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.BailBondsman.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.BountyAmount)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.FelonBountyId">Edit</a> |
-                                    <a asp-action="Details" asp-route-id="@item.FelonBountyId">Details</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.FelonBountyId">Delete</a>
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BailBondsmen.Single().Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Felon.FelonBounties.Single().BountyAmount)
+                                </th>
+                                <th></th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            Open Bonds
+                            @foreach (var item in Model.Felon.FelonBounties)
+                            {
+                                if (item.BondClosed == false)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BailBondsman.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BountyAmount)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.FelonBountyId">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@item.FelonBountyId">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.FelonBountyId">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BailBondsmen.Single().Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Felon.FelonBounties.Single().BountyAmount)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            Closed Bonds
+                            @foreach (var item in Model.Felon.FelonBounties)
+                            {
+                                if (item.BondClosed == true)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BailBondsman.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BountyAmount)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.FelonBountyId">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@item.FelonBountyId">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.FelonBountyId">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-md-6" style="height: 300px;">
                 <table class="table">

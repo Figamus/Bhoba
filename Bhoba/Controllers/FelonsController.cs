@@ -44,13 +44,16 @@ namespace Bhoba.Controllers
             FelonDetailsViewModel createview = new FelonDetailsViewModel();
 
             createview.Felon = await _context.Felons
-                        .Include(f => f.FelonAddresses)
-                        .Include(f => f.FelonBounties)
-                        .FirstOrDefaultAsync(m => m.FelonId == id);
+                                .Include(f => f.FelonAddresses)
+                                .Include(f => f.FelonBounties)
+                                    .ThenInclude(fb => fb.BailBondsman)
+                                .FirstOrDefaultAsync(m => m.FelonId == id);
 
             foreach (var item in createview.Felon.FelonAddresses)
             {
-                Address addresses = _context.Addresses.Where(ad => ad.AddressId == item.AddressId).FirstOrDefault();
+                Address addresses = _context.Addresses
+                                    .Where(ad => ad.AddressId == item.AddressId)
+                                    .FirstOrDefault();
                 createview.Addresses.Add(addresses);
             }
 
