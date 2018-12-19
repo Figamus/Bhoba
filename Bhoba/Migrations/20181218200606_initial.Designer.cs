@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bhoba.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181214162313_initial")]
+    [Migration("20181218200606_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,6 +169,8 @@ namespace Bhoba.Migrations
 
                     b.Property<int>("BailBondsmanId");
 
+                    b.Property<bool>("BondClosed");
+
                     b.Property<double>("BountyAmount");
 
                     b.Property<int>("FelonId");
@@ -182,9 +184,9 @@ namespace Bhoba.Migrations
                     b.ToTable("FelonBounties");
 
                     b.HasData(
-                        new { FelonBountyId = 1, BailBondsmanId = 1, BountyAmount = 10000.0, FelonId = 1 },
-                        new { FelonBountyId = 2, BailBondsmanId = 2, BountyAmount = 8000.0, FelonId = 2 },
-                        new { FelonBountyId = 3, BailBondsmanId = 3, BountyAmount = 6000.0, FelonId = 1 }
+                        new { FelonBountyId = 1, BailBondsmanId = 1, BondClosed = false, BountyAmount = 10000.0, FelonId = 1 },
+                        new { FelonBountyId = 2, BailBondsmanId = 2, BondClosed = false, BountyAmount = 8000.0, FelonId = 2 },
+                        new { FelonBountyId = 3, BailBondsmanId = 3, BondClosed = true, BountyAmount = 6000.0, FelonId = 1 }
                     );
                 });
 
@@ -411,7 +413,7 @@ namespace Bhoba.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.HasData(
-                        new { Id = "26d7a11c-1cf7-4cae-b182-8950e74abc33", AccessFailedCount = 0, ConcurrencyStamp = "7f61be15-e6e2-48fd-b06e-c9eab15b3443", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEOgCCqd7yxFprjDLC77oNeRh9lQBLR1ZUtvEXY5D/Rx7cT36VTQIHOA6T++reSKYPA==", PhoneNumberConfirmed = false, SecurityStamp = "a45926eb-b7cd-4622-b56a-fd62593d00b5", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                        new { Id = "7c2576b7-5895-48e4-ac40-8f8fa5286c4e", AccessFailedCount = 0, ConcurrencyStamp = "d647ae98-1db5-4863-a7f8-4b29b1713f6e", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEACck8YdaBP91JB17Qq9nqFcjgepEL5MO08v+i4VSe/WdPkEPwrEQzLPJ3QJVm0Pbg==", PhoneNumberConfirmed = false, SecurityStamp = "6105ca11-1687-4f28-9a7d-808d406a773c", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
                     );
                 });
 

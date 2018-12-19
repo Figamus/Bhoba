@@ -201,21 +201,24 @@ namespace Bhoba.Data
                     FelonBountyId = 1,
                     BailBondsmanId = 1,
                     FelonId = 1,
-                    BountyAmount = 10000.00
+                    BountyAmount = 10000.00,
+                    BondClosed = false
                 },
                 new FelonBounty()
                 {
                     FelonBountyId = 2,
                     BailBondsmanId = 2,
                     FelonId = 2,
-                    BountyAmount = 8000.00
+                    BountyAmount = 8000.00,
+                    BondClosed = false
                 },
                 new FelonBounty()
                 {
                     FelonBountyId = 3,
                     BailBondsmanId = 3,
                     FelonId = 1,
-                    BountyAmount = 6000.00
+                    BountyAmount = 6000.00,
+                    BondClosed = true
                 }
             );
 
