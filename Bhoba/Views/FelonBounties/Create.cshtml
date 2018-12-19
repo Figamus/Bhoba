@@ -1,0 +1,48 @@
+﻿@model Bhoba.Models.FelonBounty
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>FelonBounty</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BailBondsmanId" class="control-label"></label>
+                <select asp-for="BailBondsmanId" class ="form-control" asp-items="ViewBag.BailBondsmanId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FelonId" class="control-label"></label>
+                <select asp-for="FelonId" class ="form-control" asp-items="ViewBag.FelonId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BountyAmount" class="control-label"></label>
+                <input asp-for="BountyAmount" class="form-control" />
+                <span asp-validation-for="BountyAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="BondClosed" /> @Html.DisplayNameFor(model => model.BondClosed)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
