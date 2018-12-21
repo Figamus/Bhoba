@@ -126,7 +126,7 @@ namespace Bhoba.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Felons", new { id = returnView.FelonBounty.FelonId});
             }
             return View(returnView);
         }
