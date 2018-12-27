@@ -171,7 +171,18 @@ namespace Bhoba.Migrations
 
                     b.Property<double>("BountyAmount");
 
+                    b.Property<string>("CrimeType")
+                        .IsRequired()
+                        .HasMaxLength(55);
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
                     b.Property<int>("FelonId");
+
+                    b.Property<string>("PoliceReportNumber")
+                        .IsRequired()
+                        .HasMaxLength(55);
 
                     b.HasKey("FelonBountyId");
 
@@ -182,9 +193,9 @@ namespace Bhoba.Migrations
                     b.ToTable("FelonBounties");
 
                     b.HasData(
-                        new { FelonBountyId = 1, BailBondsmanId = 1, BondClosed = false, BountyAmount = 10000.0, FelonId = 1 },
-                        new { FelonBountyId = 2, BailBondsmanId = 2, BondClosed = false, BountyAmount = 8000.0, FelonId = 2 },
-                        new { FelonBountyId = 3, BailBondsmanId = 3, BondClosed = true, BountyAmount = 6000.0, FelonId = 1 }
+                        new { FelonBountyId = 1, BailBondsmanId = 1, BondClosed = false, BountyAmount = 10000.0, CrimeType = "Indecent Exposure", Description = "Public exposure to blind people", FelonId = 1, PoliceReportNumber = "S-0079-AJ007" },
+                        new { FelonBountyId = 2, BailBondsmanId = 2, BondClosed = false, BountyAmount = 8000.0, CrimeType = "Traffic Violation", Description = "Unpaid parking violations in excess of 1,000 USD", FelonId = 2, PoliceReportNumber = "B-0179-BB345" },
+                        new { FelonBountyId = 3, BailBondsmanId = 3, BondClosed = true, BountyAmount = 6000.0, CrimeType = "Breaking & Entering", Description = "Unlawful entry into a private residence.", FelonId = 1, PoliceReportNumber = "X-0325-PS846" }
                     );
                 });
 
@@ -411,7 +422,7 @@ namespace Bhoba.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.HasData(
-                        new { Id = "7c2576b7-5895-48e4-ac40-8f8fa5286c4e", AccessFailedCount = 0, ConcurrencyStamp = "d647ae98-1db5-4863-a7f8-4b29b1713f6e", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEACck8YdaBP91JB17Qq9nqFcjgepEL5MO08v+i4VSe/WdPkEPwrEQzLPJ3QJVm0Pbg==", PhoneNumberConfirmed = false, SecurityStamp = "6105ca11-1687-4f28-9a7d-808d406a773c", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                        new { Id = "2dd716f4-ad2d-4cdc-8b8e-d0c1688f0598", AccessFailedCount = 0, ConcurrencyStamp = "50732898-4950-46bd-a743-1205340e51e4", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEJyfWQWOAlUgFuHQs/h5reTL9zHvjr3V1b62qzmfl6bCD7MIgpzfeYUd5iAYy29d/w==", PhoneNumberConfirmed = false, SecurityStamp = "af113fea-3c34-4f09-9af7-50910d1d2896", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
                     );
                 });
 

@@ -184,6 +184,9 @@ namespace Bhoba.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BailBondsmanId = table.Column<int>(nullable: false),
                     FelonId = table.Column<int>(nullable: false),
+                    PoliceReportNumber = table.Column<string>(maxLength: 55, nullable: false),
+                    CrimeType = table.Column<string>(maxLength: 55, nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     BountyAmount = table.Column<double>(nullable: false),
                     BondClosed = table.Column<bool>(nullable: false)
                 },
@@ -358,7 +361,7 @@ namespace Bhoba.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AddressId", "ApplicationUserRoleId", "FirstName", "LastName" },
-                values: new object[] { "7c2576b7-5895-48e4-ac40-8f8fa5286c4e", 0, "d647ae98-1db5-4863-a7f8-4b29b1713f6e", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEACck8YdaBP91JB17Qq9nqFcjgepEL5MO08v+i4VSe/WdPkEPwrEQzLPJ3QJVm0Pbg==", null, false, "6105ca11-1687-4f28-9a7d-808d406a773c", false, "admin@admin.com", 1, 1, "admin", "admin" });
+                values: new object[] { "2dd716f4-ad2d-4cdc-8b8e-d0c1688f0598", 0, "50732898-4950-46bd-a743-1205340e51e4", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEJyfWQWOAlUgFuHQs/h5reTL9zHvjr3V1b62qzmfl6bCD7MIgpzfeYUd5iAYy29d/w==", null, false, "af113fea-3c34-4f09-9af7-50910d1d2896", false, "admin@admin.com", 1, 1, "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "BailBondsmans",
@@ -382,18 +385,18 @@ namespace Bhoba.Migrations
 
             migrationBuilder.InsertData(
                 table: "FelonBounties",
-                columns: new[] { "FelonBountyId", "BailBondsmanId", "BondClosed", "BountyAmount", "FelonId" },
-                values: new object[] { 1, 1, false, 10000.0, 1 });
+                columns: new[] { "FelonBountyId", "BailBondsmanId", "BondClosed", "BountyAmount", "CrimeType", "Description", "FelonId", "PoliceReportNumber" },
+                values: new object[] { 1, 1, false, 10000.0, "Indecent Exposure", "Public exposure to blind people", 1, "S-0079-AJ007" });
 
             migrationBuilder.InsertData(
                 table: "FelonBounties",
-                columns: new[] { "FelonBountyId", "BailBondsmanId", "BondClosed", "BountyAmount", "FelonId" },
-                values: new object[] { 2, 2, false, 8000.0, 2 });
+                columns: new[] { "FelonBountyId", "BailBondsmanId", "BondClosed", "BountyAmount", "CrimeType", "Description", "FelonId", "PoliceReportNumber" },
+                values: new object[] { 2, 2, false, 8000.0, "Traffic Violation", "Unpaid parking violations in excess of 1,000 USD", 2, "B-0179-BB345" });
 
             migrationBuilder.InsertData(
                 table: "FelonBounties",
-                columns: new[] { "FelonBountyId", "BailBondsmanId", "BondClosed", "BountyAmount", "FelonId" },
-                values: new object[] { 3, 3, true, 6000.0, 1 });
+                columns: new[] { "FelonBountyId", "BailBondsmanId", "BondClosed", "BountyAmount", "CrimeType", "Description", "FelonId", "PoliceReportNumber" },
+                values: new object[] { 3, 3, true, 6000.0, "Breaking & Entering", "Unlawful entry into a private residence.", 1, "X-0325-PS846" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

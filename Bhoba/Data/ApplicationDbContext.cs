@@ -201,6 +201,9 @@ namespace Bhoba.Data
                     FelonBountyId = 1,
                     BailBondsmanId = 1,
                     FelonId = 1,
+                    PoliceReportNumber = "S-0079-AJ007",
+                    CrimeType = "Indecent Exposure",
+                    Description = "Public exposure to blind people",
                     BountyAmount = 10000.00,
                     BondClosed = false
                 },
@@ -209,6 +212,9 @@ namespace Bhoba.Data
                     FelonBountyId = 2,
                     BailBondsmanId = 2,
                     FelonId = 2,
+                    PoliceReportNumber = "B-0179-BB345",
+                    CrimeType = "Traffic Violation",
+                    Description = "Unpaid parking violations in excess of 1,000 USD",
                     BountyAmount = 8000.00,
                     BondClosed = false
                 },
@@ -217,6 +223,9 @@ namespace Bhoba.Data
                     FelonBountyId = 3,
                     BailBondsmanId = 3,
                     FelonId = 1,
+                    PoliceReportNumber = "X-0325-PS846",
+                    CrimeType = "Breaking & Entering",
+                    Description = "Unlawful entry into a private residence.",
                     BountyAmount = 6000.00,
                     BondClosed = true
                 }
