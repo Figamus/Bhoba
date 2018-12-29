@@ -18,6 +18,17 @@ namespace Bhoba.Models
         public int FelonId { get; set; }
 
         [Required]
+        [StringLength(55, ErrorMessage = "Please enter the associated police report number")]
+        public string PoliceReportNumber { get; set; }
+
+        [Required]
+        [StringLength(55, ErrorMessage = "Please specify the type of violation")]
+        public string CrimeType { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+
+        [Required]
         public double BountyAmount { get; set; }
 
         [Required]
