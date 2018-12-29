@@ -1,4 +1,4 @@
-﻿@model Bhoba.Models.FelonBounty
+﻿@model Bhoba.Models.FelonBountyViewModel.FelonBountyCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,24 +13,29 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BailBondsmanId" class="control-label"></label>
-                <select asp-for="BailBondsmanId" class ="form-control" asp-items="ViewBag.BailBondsmanId"></select>
+                <label asp-for="BailBondsmansId" class="control-label"></label>
+                <select asp-for="BailBondsmansId" class="form-control" asp-items="@Model.BailBondsmans"></select>
+                <span asp-validation-for="BailBondsmansId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FelonId" class="control-label"></label>
-                <select asp-for="FelonId" class ="form-control" asp-items="ViewBag.FelonId"></select>
+                <label asp-for="FelonBounty.BountyAmount" class="control-label"></label>
+                <input asp-for="FelonBounty.BountyAmount" class="form-control" />
+                <span asp-validation-for="FelonBounty.BountyAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BountyAmount" class="control-label"></label>
-                <input asp-for="BountyAmount" class="form-control" />
-                <span asp-validation-for="BountyAmount" class="text-danger"></span>
+                <label asp-for="FelonBounty.PoliceReportNumber" class="control-label"></label>
+                <input asp-for="FelonBounty.PoliceReportNumber" class="form-control" />
+                <span asp-validation-for="FelonBounty.PoliceReportNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="BondClosed" /> @Html.DisplayNameFor(model => model.BondClosed)
-                    </label>
-                </div>
+                <label asp-for="FelonBounty.CrimeType" class="control-label"></label>
+                <input asp-for="FelonBounty.CrimeType" class="form-control" />
+                <span asp-validation-for="FelonBounty.CrimeType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FelonBounty.Description" class="control-label"></label>
+                <input asp-for="FelonBounty.Description" class="form-control" />
+                <span asp-validation-for="FelonBounty.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

@@ -48,11 +48,19 @@ namespace Bhoba.Controllers
         }
 
         // GET: FelonBounties/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
-            ViewData["BailBondsmanId"] = new SelectList(_context.BailBondsmans, "BailBondsmanId", "Name");
-            ViewData["FelonId"] = new SelectList(_context.Felons, "FelonId", "Alias");
-            return View();
+            List<SelectListItem> bailbondsmans = _context.BailBondsmans.Select(bb => new SelectListItem(bb.Name, bb.BailBondsmanId.ToString())).ToList();
+
+            FelonBountyCreateViewModel createViewModel = new FelonBountyCreateViewModel();
+
+            bailbondsmans.Insert(0, new SelectListItem
+            {
+                Text = "Choose a Bail Bond Agency",
+                Value = "0"
+            });
+            createViewModel.BailBondsmans = bailbondsmans;
+            return View(createViewModel);
         }
 
         // POST: FelonBounties/Create
@@ -60,17 +68,18 @@ namespace Bhoba.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FelonBountyId,BailBondsmanId,FelonId,BountyAmount,BondClosed")] FelonBounty felonBounty)
+        public async Task<IActionResult> Create(int id, FelonBountyCreateViewModel fb)
         {
+            fb.FelonBounty.BondClosed = false;
+            fb.FelonBounty.FelonId = id;
+            fb.FelonBounty.BailBondsmanId = fb.BailBondsmansId;
             if (ModelState.IsValid)
             {
-                _context.Add(felonBounty);
+                _context.Add(fb.FelonBounty);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Felons", new { id });
             }
-            ViewData["BailBondsmanId"] = new SelectList(_context.BailBondsmans, "BailBondsmanId", "Name", felonBounty.BailBondsmanId);
-            ViewData["FelonId"] = new SelectList(_context.Felons, "FelonId", "Alias", felonBounty.FelonId);
-            return View(felonBounty);
+            return View(fb);
         }
 
         // GET: FelonBounties/Edit/5

@@ -84,7 +84,6 @@ namespace Bhoba.Controllers
                     AddressId = address.AddressId
                 };
                 _context.Add(newFelonAddress);
-                await _context.SaveChangesAsync();
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Details", "Felons", new { id });
