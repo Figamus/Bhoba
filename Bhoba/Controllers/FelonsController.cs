@@ -109,6 +109,7 @@ namespace Bhoba.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FelonCreateViewModel newFelon)
         {
+            newFelon.BondClosed = false;
             if (ModelState.IsValid)
             {
                 var newAddress = new Address
@@ -119,10 +120,7 @@ namespace Bhoba.Controllers
                     ZipCode = newFelon.Address.ZipCode
                 };
                 _context.Add(newAddress);
-                await _context.SaveChangesAsync();
-
                 _context.Add(newFelon.Felon);
-                await _context.SaveChangesAsync();
 
                 var newFelonAddress = new FelonAddress
                 {
@@ -130,16 +128,20 @@ namespace Bhoba.Controllers
                     AddressId = newAddress.AddressId
                 };
                 _context.Add(newFelonAddress);
-                await _context.SaveChangesAsync();
 
                 var newFelonBounty = new FelonBounty
                 {
                     FelonId = newFelon.Felon.FelonId,
-                    BailBondsmanId = newFelon.BailBondsmansId
+                    BailBondsmanId = newFelon.BailBondsmansId,
+                    PoliceReportNumber = newFelon.PoliceReportNumber,
+                    CrimeType = newFelon.CrimeType,
+                    Description = newFelon.Description,
+                    BountyAmount = newFelon.BondAmount,
+                    BondClosed = newFelon.BondClosed
                 };
                 _context.Add(newFelonBounty);
-                await _context.SaveChangesAsync();
 
+                await _context.SaveChangesAsync();
                 return RedirectToAction("Details", "Felons", new { id = newFelon.Felon.FelonId });
             }
             return View(newFelon);
