@@ -73,6 +73,25 @@ namespace Bhoba.Controllers
             fb.FelonBounty.BondClosed = false;
             fb.FelonBounty.FelonId = id;
             fb.FelonBounty.BailBondsmanId = fb.BailBondsmansId;
+            if (fb.BailBondsmansId == 0)
+            {
+                List<SelectListItem> bailbondsmans = _context.BailBondsmans.Select(bb => new SelectListItem(bb.Name, bb.BailBondsmanId.ToString())).ToList();
+
+                FelonBountyCreateViewModel createViewModel = new FelonBountyCreateViewModel();
+
+                bailbondsmans.Insert(0, new SelectListItem
+                {
+                    Text = "Choose a Bail Bond Agency",
+                    Value = "0"
+                });
+                createViewModel.BailBondsmans = bailbondsmans;
+                if (fb.ErrorMsg != null)
+                {
+                    createViewModel.ErrorMsg = "Please select a Bail Bondsman";
+                    return View(createViewModel);
+                }
+                return View(createViewModel);
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(fb.FelonBounty);
