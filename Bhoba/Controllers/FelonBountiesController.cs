@@ -85,7 +85,7 @@ namespace Bhoba.Controllers
                     Value = "0"
                 });
                 createViewModel.BailBondsmans = bailbondsmans;
-                if (fb.ErrorMsg != null)
+                if (fb.ErrorMsg == null)
                 {
                     createViewModel.ErrorMsg = "Please select a Bail Bondsman";
                     return View(createViewModel);
