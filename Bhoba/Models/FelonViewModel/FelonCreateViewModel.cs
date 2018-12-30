@@ -17,5 +17,6 @@ namespace Bhoba.Models.FelonViewModel
         public double BondAmount { get; set; }
         public bool BondClosed { get; set; }
         public List<SelectListItem> BailBondsmans { get; set; }
+        public string ErrorMsg { get; set; }
     }
 }

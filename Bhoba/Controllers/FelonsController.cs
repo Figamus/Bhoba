@@ -110,6 +110,27 @@ namespace Bhoba.Controllers
         public async Task<IActionResult> Create(FelonCreateViewModel newFelon)
         {
             newFelon.BondClosed = false;
+
+            if (newFelon.BailBondsmansId == 0)
+            {
+                List<SelectListItem> bailbondsmans = _context.BailBondsmans.Select(bb => new SelectListItem(bb.Name, bb.BailBondsmanId.ToString())).ToList();
+
+                FelonCreateViewModel createViewModel = new FelonCreateViewModel();
+
+                bailbondsmans.Insert(0, new SelectListItem
+                {
+                    Text = "Choose a Bail Bond Agency",
+                    Value = "0"
+                });
+                createViewModel.BailBondsmans = bailbondsmans;
+                if (newFelon.ErrorMsg == null)
+                {
+                    createViewModel.ErrorMsg = "Please select a Bail Bondsman";
+                    return View(createViewModel);
+                }
+                return View(createViewModel);
+            }
+
             if (ModelState.IsValid)
             {
                 var newAddress = new Address

@@ -12,5 +12,6 @@ namespace Bhoba.Models.FelonBountyViewModel
         public int BailBondsmansId { get; set; }
         public FelonBounty FelonBounty {get; set; }
         public Felon Felon { get; set; }
+        public string ErrorMsg { get; set; }
     }
 }

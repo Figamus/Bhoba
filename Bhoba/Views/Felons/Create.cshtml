@@ -13,6 +13,9 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <span class="text-danger">@Model.ErrorMsg</span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Felon.FirstName" class="control-label"></label>
                 <input asp-for="Felon.FirstName" class="form-control" />
                 <span asp-validation-for="Felon.FirstName" class="text-danger"></span>
