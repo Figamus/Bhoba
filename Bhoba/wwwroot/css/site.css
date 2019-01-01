@@ -35,3 +35,9 @@ body {
         display: none;
     }
 }
+
+/*My CSS*/
+body {
+    background-color: #343a40;
+    color: #9d9d9d;
+}
