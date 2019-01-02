@@ -21,6 +21,21 @@
                 <span asp-validation-for="FelonBounty.BountyAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="FelonBounty.PoliceReportNumber" class="control-label"></label>
+                <input asp-for="FelonBounty.PoliceReportNumber" class="form-control" />
+                <span asp-validation-for="FelonBounty.PoliceReportNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FelonBounty.CrimeType" class="control-label"></label>
+                <input asp-for="FelonBounty.CrimeType" class="form-control" />
+                <span asp-validation-for="FelonBounty.CrimeType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FelonBounty.Description" class="control-label"></label>
+                <input asp-for="FelonBounty.Description" class="form-control" />
+                <span asp-validation-for="FelonBounty.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <div class="checkbox">
                     <label>
                         <input asp-for="FelonBounty.BondClosed" /> @Html.DisplayNameFor(model => model.FelonBounty.BondClosed)

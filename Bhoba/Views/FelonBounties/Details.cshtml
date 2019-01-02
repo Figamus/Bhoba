@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>FelonBounty</h4>
+    <h4>Bailbond details for @Html.DisplayFor(model => model.Felon.FirstName) @Html.DisplayFor(model => model.Felon.LastName)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -15,6 +15,24 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.BountyAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PoliceReportNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PoliceReportNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CrimeType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CrimeType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.BondClosed)
