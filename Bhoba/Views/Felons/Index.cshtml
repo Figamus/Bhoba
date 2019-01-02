@@ -7,7 +7,7 @@
 <h2>Felon Database</h2>
 
 <p>
-    <a asp-action="Create">Issue Bond For New Felon</a>
+    <a asp-action="Create" class="btn btn-default btn-sm">Issue Bond For New Felon</a>
 </p>
 <table class="table">
     <thead>
@@ -49,9 +49,9 @@
                 @Html.DisplayFor(modelItem => item.FelonBounties.Count)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.FelonId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FelonId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FelonId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Delete</a>
             </td>
         </tr>
 }

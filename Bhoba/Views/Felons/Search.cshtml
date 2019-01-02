@@ -54,9 +54,9 @@ else
                     @Html.DisplayFor(modelItem => item.FelonBounties.Count)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.FelonId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.FelonId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.FelonId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Delete</a>
                 </td>
             </tr>
             }
