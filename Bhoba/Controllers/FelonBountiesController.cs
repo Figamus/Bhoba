@@ -110,18 +110,18 @@ namespace Bhoba.Controllers
                 return NotFound();
             }
 
-            createview.FelonBounty = await _context.FelonBounties
+            FelonBounty thing = await _context.FelonBounties
                                             .Where(fb => fb.FelonBountyId == id)
                                             .Include(fb => fb.BailBondsman)
                                             .Include(fb => fb.Felon)
                                             .FirstOrDefaultAsync();
 
-            if (createview.FelonBounty == null)
+            if (thing == null)
             {
                 return NotFound();
             }
 
-            return View(createview);
+            return View(thing);
         }
 
         // POST: FelonBounties/Edit/5
@@ -129,23 +129,37 @@ namespace Bhoba.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, FelonBountyEditViewModel returnView)
+        public async Task<IActionResult> Edit(int id, FelonBounty returnView)
         {
-            if (id != returnView.FelonBounty.FelonBountyId)
+            if (id != returnView.FelonBountyId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                FelonBounty editFelon = new FelonBounty();
+
+                editFelon = await _context.FelonBounties
+                                                .Where(fb => fb.FelonBountyId == id)
+                                                .Include(fb => fb.BailBondsman)
+                                                .Include(fb => fb.Felon)
+                                                .FirstOrDefaultAsync();
+
+                editFelon.Description = returnView.Description;
+                editFelon.CrimeType = returnView.CrimeType;
+                editFelon.PoliceReportNumber = returnView.PoliceReportNumber;
+                editFelon.BondClosed = returnView.BondClosed;
+                editFelon.BountyAmount = returnView.BountyAmount;
+
                 try
                 {
-                    _context.Update(returnView.FelonBounty);
+                    _context.Update(editFelon);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FelonBountyExists(returnView.FelonBounty.FelonBountyId))
+                    if (!FelonBountyExists(returnView.FelonBountyId))
                     {
                         return NotFound();
                     }
@@ -154,7 +168,7 @@ namespace Bhoba.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Details", "Felons", new { id = returnView.FelonBounty.FelonId});
+                return RedirectToAction("Details", "Felons", new { id = editFelon.FelonId});
             }
             return View(returnView);
         }
