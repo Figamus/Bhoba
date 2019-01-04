@@ -7,6 +7,10 @@ namespace Bhoba.Models.FelonBountyViewModel
 {
     public class FelonBountyEditViewModel
     {
-        public FelonBounty FelonBounty { get; set; }
+        public string PoliceReportNumber { get; set; }
+        public string CrimeType { get; set; }
+        public string Description { get; set; }
+        public double BountyAmount { get; set; }
+        public bool BondClosed { get; set; }
     }
 }

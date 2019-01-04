@@ -1,4 +1,4 @@
-﻿@model Bhoba.Models.FelonBountyViewModel.FelonBountyEditViewModel
+﻿@model Bhoba.Models.FelonBounty
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,18 +12,31 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FelonBounty.FelonBountyId" />
-            <input type="hidden" asp-for="FelonBounty.BailBondsmanId" />
-            <input type="hidden" asp-for="FelonBounty.FelonId" />
+            <input type="hidden" asp-for="FelonBountyId" />
             <div class="form-group">
-                <label asp-for="FelonBounty.BountyAmount" class="control-label"></label>
-                <input asp-for="FelonBounty.BountyAmount" class="form-control" />
-                <span asp-validation-for="FelonBounty.BountyAmount" class="text-danger"></span>
+                <label asp-for="BountyAmount" class="control-label"></label>
+                <input asp-for="BountyAmount" class="form-control" />
+                <span asp-validation-for="BountyAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PoliceReportNumber" class="control-label"></label>
+                <input asp-for="PoliceReportNumber" class="form-control" />
+                <span asp-validation-for="PoliceReportNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CrimeType" class="control-label"></label>
+                <input asp-for="CrimeType" class="form-control" />
+                <span asp-validation-for="CrimeType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="FelonBounty.BondClosed" /> @Html.DisplayNameFor(model => model.FelonBounty.BondClosed)
+                        <input asp-for="BondClosed" /> @Html.DisplayNameFor(model => model.BondClosed)
                     </label>
                 </div>
             </div>
