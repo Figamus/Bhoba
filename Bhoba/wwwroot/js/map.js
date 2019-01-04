@@ -9,7 +9,7 @@ var locations = [
 
 console.log(listOfLocations)
 
-function initMap() {
+/*function initMap() {
     var infowindow = new google.maps.InfoWindow();
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 10,
@@ -32,90 +32,161 @@ function initMap() {
             }
         })(marker, i));
     }
-}
+}*/
 //*****End Code for running the Google Maps API*****
 
 
 
 //*****Multiple Geocoding*****
-var delay = 100;
-var infowindow = new google.maps.InfoWindow();
-var latlng = new google.maps.LatLng(21.0000, 78.0000);
-var mapOptions = {
-    zoom: 5,
-    center: latlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-}
-var geocoder = new google.maps.Geocoder();
-var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-var bounds = new google.maps.LatLngBounds();
-
-function geocodeAddress(address, next) {
-    geocoder.geocode({ address: address }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            var p = results[0].geometry.location;
-            var lat = p.lat();
-            var lng = p.lng();
-            createMarker(address, lat, lng);
-        }
-        else {
-            if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                nextAddress--;
-                delay++;
-            } else {
+function initMap() {
+    var delay = 100;
+    var infowindow = new google.maps.InfoWindow();
+    var latlng = new google.maps.LatLng(36.174465, -86.767960);
+    var mapOptions = {
+        zoom: 8,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: [
+            { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
+            { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
+            { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
+            {
+                featureType: 'administrative.locality',
+                elementType: 'labels.text.fill',
+                stylers: [{ color: '#d59563' }]
+            },
+            {
+                featureType: 'poi',
+                elementType: 'labels.text.fill',
+                stylers: [{ color: '#d59563' }]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'geometry',
+                stylers: [{ color: '#263c3f' }]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'labels.text.fill',
+                stylers: [{ color: '#6b9a76' }]
+            },
+            {
+                featureType: 'road',
+                elementType: 'geometry',
+                stylers: [{ color: '#38414e' }]
+            },
+            {
+                featureType: 'road',
+                elementType: 'geometry.stroke',
+                stylers: [{ color: '#212a37' }]
+            },
+            {
+                featureType: 'road',
+                elementType: 'labels.text.fill',
+                stylers: [{ color: '#9ca5b3' }]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'geometry',
+                stylers: [{ color: '#746855' }]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'geometry.stroke',
+                stylers: [{ color: '#1f2835' }]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'labels.text.fill',
+                stylers: [{ color: '#f3d19c' }]
+            },
+            {
+                featureType: 'transit',
+                elementType: 'geometry',
+                stylers: [{ color: '#2f3948' }]
+            },
+            {
+                featureType: 'transit.station',
+                elementType: 'labels.text.fill',
+                stylers: [{ color: '#d59563' }]
+            },
+            {
+                featureType: 'water',
+                elementType: 'geometry',
+                stylers: [{ color: '#17263c' }]
+            },
+            {
+                featureType: 'water',
+                elementType: 'labels.text.fill',
+                stylers: [{ color: '#515c6d' }]
+            },
+            {
+                featureType: 'water',
+                elementType: 'labels.text.stroke',
+                stylers: [{ color: '#17263c' }]
             }
+        ]
+    }
+    var geocoder = new google.maps.Geocoder();
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var bounds = new google.maps.LatLngBounds();
+
+    function geocodeAddress(address, next) {
+        geocoder.geocode({ address: address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var p = results[0].geometry.location;
+                var lat = p.lat();
+                var lng = p.lng();
+                createMarker(address, lat, lng);
+            }
+            else {
+                if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                    nextAddress--;
+                    delay++;
+                } else {
+                }
+            }
+            next();
         }
-        next();
+        );
     }
-    );
-}
-function createMarker(add, lat, lng) {
-    var contentString = add;
-    var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
-        map: map,
-    });
 
-    google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(contentString);
-        infowindow.open(map, marker);
-    });
-
-    bounds.extend(marker.position);
-
-}
-var locations = [
-    'New Delhi, India',
-    'Mumbai, India',
-    'Bangaluru, Karnataka, India',
-    'Hyderabad, Ahemdabad, India',
-    'Gurgaon, Haryana, India',
-    'Cannaught Place, New Delhi, India',
-    'Bandra, Mumbai, India',
-    'Nainital, Uttranchal, India',
-    'Guwahati, India',
-    'West Bengal, India',
-    'Jammu, India',
-    'Kanyakumari, India',
-    'Kerala, India',
-    'Himachal Pradesh, India',
-    'Shillong, India',
-    'Chandigarh, India',
-    'Dwarka, New Delhi, India',
-    'Pune, India',
-    'Indore, India',
-    'Orissa, India',
-    'Shimla, India',
-    'Gujarat, India'
-];
-var nextAddress = 0;
-function theNext() {
-    if (nextAddress < locations.length) {
-        setTimeout('geocodeAddress("' + locations[nextAddress] + '",theNext)', delay);
-        nextAddress++;
-    } else {
-        map.fitBounds(bounds);
+    function createMarker(add, lat, lng) {
+        var contentString = add;
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(lat, lng),
+            map: map,
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
+        });
+        bounds.extend(marker.position);
     }
+
+    var locations = [
+        'Nashville, Tennessee',
+        'Franklin, Tennessee',
+        'Spring Hill, Tennessee',
+        'Columbia, Tennessee',
+        'Brentwood, Tennessee'
+    ];
+
+    var nextAddress = 0;
+
+    callGeocode = () => {
+        geocodeAddress(locations[nextAddress], theNext);
+    }
+
+    function theNext() {
+        if (nextAddress < locations.length) {
+            setTimeout(callGeocode, delay);
+            nextAddress++;
+        } else {
+            map.fitBounds(bounds);
+        }
+    }
+
+    theNext();
 }
-theNext();
 //*****End Multiple GeoCoding*****

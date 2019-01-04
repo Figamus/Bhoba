@@ -1,4 +1,10 @@
 ﻿@model Bhoba.Models.FelonViewModel.FelonDetailsViewModel
+@******Using an @section to run the script solely on this view that needs it. *@
+@section Scripts{
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe3KeHWvwP2BX-h5LGDk3omNdBvVzR4gQ&callback=initMap"></script>
+    <script>var listOfLocations = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.listOfAvm))</script>
+    <script src="~/js/map.js" asp-append-version="true"></script>
+}
 
 @{
     ViewData["Title"] = "Details";
@@ -177,12 +183,3 @@
         </div>
     </div>
 </div>
-
-@******Using an @section to run the script solely on this view that needs it. *@
-@section Scripts{
-    <script>
-        var listOfLocations = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.listOfAvm))
-    </script>
-    @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>*@
-    <script src="~/js/map.js" asp-append-version="true"></script>
-}
