@@ -9,6 +9,7 @@ using Bhoba.Data;
 using Bhoba.Models;
 using Microsoft.AspNetCore.Authorization;
 using Bhoba.Models.FelonViewModel;
+using Bhoba.Models.AddressViewModel;
 
 namespace Bhoba.Controllers
 {
@@ -55,6 +56,18 @@ namespace Bhoba.Controllers
                                     .Where(ad => ad.AddressId == item.AddressId)
                                     .FirstOrDefault();
                 createview.Addresses.Add(addresses);
+            }
+
+            foreach (var item in createview.Addresses)
+            {
+                AddressVM avm = new AddressVM();
+                avm.AddressId = item.AddressId;
+                avm.StreetAddress = item.StreetAddress;
+                avm.City = item.City;
+                avm.State = item.State;
+                avm.ZipCode = item.ZipCode;
+
+                createview.listOfAvm.Add(avm);
             }
 
             foreach (var item in createview.Felon.FelonBounties)
