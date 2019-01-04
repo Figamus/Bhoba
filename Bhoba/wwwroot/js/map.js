@@ -1,51 +1,24 @@
 ﻿//*****Begin Code for running the Google Maps API*****
-var locations = [
-    ['Bondi Beach', -33.890542, 151.274856, 4],
-    ['Coogee Beach', -33.923036, 151.259052, 5],
-    ['Cronulla Beach', -34.028249, 151.157507, 3],
-    ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-    ['Maroubra Beach', -33.950198, 151.259302, 1]
-];
 
-console.log(listOfLocations)
+//Initialize empty list to hold a concatinated string for the address.
+var finalList = []
 
-/*function initMap() {
-    var infowindow = new google.maps.InfoWindow();
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: new google.maps.LatLng(-33.92, 151.25),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    var marker, i;
-
-    for (i = 0; i < locations.length; i++) {
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            map: map
-        });
-
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            return function () {
-                infowindow.setContent(locations[i][0]);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
-    }
-}*/
-//*****End Code for running the Google Maps API*****
-
-
+//listOfLocations is a json array created from a C# List<> that concats the full address from the model parameters
+listOfLocations.forEach(address => {
+    let fullAddress = `${address.StreetAddress} ${address.City} ${address.State} ${address.ZipCode}`;
+    finalList.push(fullAddress);
+});
 
 //*****Multiple Geocoding*****
+//intialize google maps api with options
 function initMap() {
-    var delay = 100;
     var infowindow = new google.maps.InfoWindow();
     var latlng = new google.maps.LatLng(36.174465, -86.767960);
     var mapOptions = {
         zoom: 8,
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
+        streetViewControl: false,
         styles: [
             { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
             { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
@@ -127,17 +100,24 @@ function initMap() {
             }
         ]
     }
+
+    //Set Geocoder, establish map and set bounds and delcare a delay integer
     var geocoder = new google.maps.Geocoder();
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     var bounds = new google.maps.LatLngBounds();
+    var delay = 100;
 
+    //geocodeAddress takes 2 parameters, a full address that will be geocoded, returns the result and status code
+    //contains a catch that is query is too high, it will run a delay.
     function geocodeAddress(address, next) {
         geocoder.geocode({ address: address }, function (results, status) {
+            console.log(`Geocoding ${address}`);
             if (status == google.maps.GeocoderStatus.OK) {
                 var p = results[0].geometry.location;
                 var lat = p.lat();
                 var lng = p.lng();
                 createMarker(address, lat, lng);
+                bounds.extend(new google.maps.LatLng(lat, lng));
             }
             else {
                 if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
@@ -151,6 +131,7 @@ function initMap() {
         );
     }
 
+    //This creates a pushpin on the map
     function createMarker(add, lat, lng) {
         var contentString = add;
         var marker = new google.maps.Marker({
@@ -164,24 +145,23 @@ function initMap() {
         bounds.extend(marker.position);
     }
 
-    var locations = [
-        'Nashville, Tennessee',
-        'Franklin, Tennessee',
-        'Spring Hill, Tennessee',
-        'Columbia, Tennessee',
-        'Brentwood, Tennessee'
-    ];
-
+    //a counter for the index position on the fullList array
     var nextAddress = 0;
 
+    //function to increaseCounter to be used within a setTimeout
+    function increaseCounter() {
+        nextAddress++
+    };
+    //function to run geoCodeAddress to be used within a setTimeout
     callGeocode = () => {
-        geocodeAddress(locations[nextAddress], theNext);
+        geocodeAddress(finalList[nextAddress], theNext);
     }
 
+
     function theNext() {
-        if (nextAddress < locations.length) {
+        if (nextAddress < finalList.length) {
             setTimeout(callGeocode, delay);
-            nextAddress++;
+            setTimeout(increaseCounter, delay);
         } else {
             map.fitBounds(bounds);
         }
