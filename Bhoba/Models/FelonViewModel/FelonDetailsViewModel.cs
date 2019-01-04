@@ -9,6 +9,7 @@ namespace Bhoba.Models.FelonViewModel
     {
         public Felon Felon { get; set; }
         public List<Address> Addresses { get; set; } = new List<Address>();
+        public List<AddressVM> listOfAvm { get; set; } = new List<AddressVM>();
         public List<BailBondsman> BailBondsmen { get; set; } = new List<BailBondsman>();
     }
 }
