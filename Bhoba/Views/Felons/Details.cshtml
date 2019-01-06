@@ -18,45 +18,27 @@
     <a asp-action="Index" class="btn btn-default btn-sm">Back to List</a>
 </div>
 <div>
-    <h4>Felon</h4>
     <div class="container">
-        <div>
+        <div class="row">
             @*This Div Container contains the Felon's identification information*@
-            <div class="col-md-6" style="height: 300px;">
-                <hr />
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Felon.FirstName)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Felon.FirstName)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Felon.LastName)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Felon.LastName)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Felon.DateOfBirth)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Felon.DateOfBirth)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Felon.Alias)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Felon.Alias)
-                    </dd>
-                </dl>
-            </div>
-            @*This Div Container contains the google maps showing the addresses*@
-            <div id="map" class="col-md-6" style="height: 300px;">
-                <img src="http://www.bing.com/sa/simg/maps_opengraph.png" alt="Image result for bing map" width="256" height="256">
+            <div class="col-md-4" style="height: 300px;">
+                <div class="row">
+                    <div class="col-md-4" style="text-align:right">
+                        <h4>@Html.DisplayNameFor(model => model.Felon.FirstName):</h4>
+                        <h4>@Html.DisplayNameFor(model => model.Felon.LastName):</h4>
+                        <h4>@Html.DisplayNameFor(model => model.Felon.DateOfBirth):</h4>
+                        <h4>@Html.DisplayNameFor(model => model.Felon.Alias)</h4>
+                    </div>
+                    <div class="col-md-8" style="text-align:left">
+                        <h4>@Html.DisplayFor(model => model.Felon.FirstName)</h4>
+                        <h4>@Html.DisplayFor(model => model.Felon.LastName)</h4>
+                        <h4>@Html.DisplayFor(model => model.Felon.DateOfBirth)</h4>
+                        <h4>@Html.DisplayFor(model => model.Felon.Alias)</h4>
+                    </div>
+                </div>
             </div>
             @*This Div Container contains the Felon's list of open and closed Bailbonds*@
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <h4>Bailbonds History</h4>
                 <div>
                     <table class="table">
@@ -133,9 +115,11 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="row">
             @*This Div Container contains the Felon's list of known addresses*@
             <h4>Known Addresses</h4>
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <table class="table">
                     <thead>
                         <tr>
@@ -179,6 +163,10 @@
                         }
                     </tbody>
                 </table>
+            </div>
+            @*This Div Container contains the google maps showing the addresses*@
+            <div id="map" class="col-md-4" style="height: 300px;">
+                <img src="http://www.bing.com/sa/simg/maps_opengraph.png" alt="Image result for bing map" width="256" height="256">
             </div>
         </div>
     </div>
