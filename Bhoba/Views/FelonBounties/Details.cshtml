@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Bailbond Details for @Html.DisplayFor(model => model.Felon.FirstName) @Html.DisplayFor(model => model.Felon.LastName)</h2>
 
 <div>
-    <h4>Bailbond details for @Html.DisplayFor(model => model.Felon.FirstName) @Html.DisplayFor(model => model.Felon.LastName)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -55,6 +54,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.FelonBountyId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.FelonBountyId" class="btn btn-default btn-sm">Edit</a>
 </div>
