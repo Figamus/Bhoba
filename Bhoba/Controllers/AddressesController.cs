@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Bhoba.Data;
 using Bhoba.Models;
 using Bhoba.Models.AddressViewModel;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Bhoba.Controllers
 {
@@ -74,6 +77,10 @@ namespace Bhoba.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int id, Address address)
         {
+            string url = $"{address.StreetAddress.Trim()},{address.City.Trim()},{address.State.Trim()},{address.ZipCode.Trim()}";
+            Location geoCodeObject = await GetRequest($"https://maps.googleapis.com/maps/api/geocode/json?address={url}&key=AIzaSyBe3KeHWvwP2BX-h5LGDk3omNdBvVzR4gQ");
+            address.Latitude = geoCodeObject.lat;
+            address.Longitude = geoCodeObject.lng;
             if (ModelState.IsValid)
             {
                 _context.Add(address);
@@ -177,6 +184,34 @@ namespace Bhoba.Controllers
         private bool AddressExists(int id)
         {
             return _context.Addresses.Any(e => e.AddressId == id);
+        }
+
+        public async Task<Location> GetRequest(string url)
+        {
+
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage response = await client.GetAsync(url))
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        string result = await content.ReadAsStringAsync();
+                        Geocode parsedResponse = JsonConvert.DeserializeObject<Geocode>(result);
+                        if (parsedResponse.results.Length == 0)
+                        {
+                            return new Location()
+                            {
+                                lat = null,
+                                lng = null,
+                            };
+                        }
+                        else
+                        {
+                        return parsedResponse.results[0].geometry.location;
+                        }
+                    }
+                }
+            }
         }
     }
 }

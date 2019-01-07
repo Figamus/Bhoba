@@ -1,20 +1,20 @@
 ﻿//*****Begin Code for running the Google Maps API*****
 
-//Initialize empty list to hold a concatinated string for the address.
-var finalList = []
-
 //listOfLocations is a json array created from a C# List<> that concats the full address from the model parameters
-listOfLocations.forEach(address => {
-    let fullAddress = `${address.StreetAddress} ${address.City} ${address.State} ${address.ZipCode}`;
-    finalList.push(fullAddress);
+let finalList = listOfLocations.map(address => {
+    let x = {};
+    x.fullAddress = `${address.StreetAddress} ${address.City} ${address.State} ${address.ZipCode}`;
+    x.Latitude = address.Latitude;
+    x.Longitude = address.Longitude;
+    return x;
 });
 
 //*****Multiple Geocoding*****
 //intialize google maps api with options
 function initMap() {
-    var infowindow = new google.maps.InfoWindow();
-    var latlng = new google.maps.LatLng(36.174465, -86.767960);
-    var mapOptions = {
+    let infowindow = new google.maps.InfoWindow();
+    let latlng = new google.maps.LatLng(36.174465, -86.767960);
+    let mapOptions = {
         zoom: 8,
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -102,39 +102,47 @@ function initMap() {
     }
 
     //Set Geocoder, establish map and set bounds and delcare a delay integer
-    var geocoder = new google.maps.Geocoder();
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    var bounds = new google.maps.LatLngBounds();
-    var delay = 100;
+    let geocoder = new google.maps.Geocoder();
+    let map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    let bounds = new google.maps.LatLngBounds();
+    let delay = 100;
 
     //geocodeAddress takes 2 parameters, a full address that will be geocoded, returns the result and status code
     //contains a catch that is query is too high, it will run a delay.
     function geocodeAddress(address, next) {
-        geocoder.geocode({ address: address }, function (results, status) {
-            console.log(`Geocoding ${address}`);
-            if (status == google.maps.GeocoderStatus.OK) {
-                var p = results[0].geometry.location;
-                var lat = p.lat();
-                var lng = p.lng();
-                createMarker(address, lat, lng);
-                bounds.extend(new google.maps.LatLng(lat, lng));
-            }
-            else {
-                if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                    nextAddress--;
-                    delay++;
-                } else {
-                }
-            }
+        if (address.Latitude != null && address.Longitude != null)
+        {
+            createMarker(address.fullAddress, address.Latitude, address.Longitude);
+            bounds.extend(new google.maps.LatLng(address.Latitude, address.Longitude));
             next();
         }
-        );
+        else
+        {
+            geocoder.geocode({ address: address.fullAddress }, function (results, status) {
+                console.log(`Geocoding ${address}`);
+                if (status == google.maps.GeocoderStatus.OK) {
+                    let p = results[0].geometry.location;
+                    let lat = p.lat();
+                    let lng = p.lng();
+                    createMarker(address, lat, lng);
+                    bounds.extend(new google.maps.LatLng(lat, lng));
+                }
+                else {
+                    if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                        nextAddress--;
+                        delay++;
+                    } else {
+                    }
+                }
+                next();
+            });
+        }
     }
 
     //This creates a pushpin on the map
     function createMarker(add, lat, lng) {
-        var contentString = add;
-        var marker = new google.maps.Marker({
+        let contentString = add;
+        let marker = new google.maps.Marker({
             position: new google.maps.LatLng(lat, lng),
             map: map,
         });
@@ -146,7 +154,7 @@ function initMap() {
     }
 
     //a counter for the index position on the fullList array
-    var nextAddress = 0;
+    let nextAddress = 0;
 
     //function to increaseCounter to be used within a setTimeout
     function increaseCounter() {

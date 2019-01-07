@@ -17,7 +17,9 @@ namespace Bhoba.Migrations
                     StreetAddress = table.Column<string>(maxLength: 55, nullable: false),
                     City = table.Column<string>(maxLength: 55, nullable: false),
                     State = table.Column<string>(maxLength: 55, nullable: false),
-                    ZipCode = table.Column<string>(maxLength: 55, nullable: false)
+                    ZipCode = table.Column<string>(maxLength: 55, nullable: false),
+                    Latitude = table.Column<float>(nullable: true),
+                    Longitude = table.Column<float>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -323,19 +325,16 @@ namespace Bhoba.Migrations
 
             migrationBuilder.InsertData(
                 table: "Addresses",
-                columns: new[] { "AddressId", "City", "State", "StreetAddress", "ZipCode" },
+                columns: new[] { "AddressId", "City", "Latitude", "Longitude", "State", "StreetAddress", "ZipCode" },
                 values: new object[,]
                 {
-                    { 1, "Everywhere", "XX", "123 Admin Way", "12345" },
-                    { 2, "Everywhere2", "XX", "223 Admin Way", "12345" },
-                    { 3, "Everywhere3", "XX", "323 Admin Way", "12345" },
-                    { 4, "Everywhere4", "XX", "423 Admin Way", "12345" },
-                    { 5, "Everywhere5", "XX", "523 Admin Way", "12345" },
-                    { 6, "Everywhere6", "XX", "623 Admin Way", "12345" },
-                    { 7, "Everywhere7", "XX", "723 Admin Way", "12345" },
-                    { 8, "Everywhere8", "XX", "823 Admin Way", "12345" },
-                    { 9, "Everywhere9", "XX", "923 Admin Way", "12345" },
-                    { 10, "Everywhere10", "XX", "1023 Admin Way", "12345" }
+                    { 1, "Spring Hill", 35.73866f, -86.90933f, "TN", "3001 Alan Dr.", "37174" },
+                    { 2, "Nashville", 36.13287f, -86.75632f, "TN", "500 Interstate Blvd.", "37210" },
+                    { 3, "Spring Hill", 35.73866f, -86.90933f, "TN", "4900 Port Royal Rd.", "37174" },
+                    { 4, "Madison", 36.2566f, -86.71313f, "TN", "627 Gallatin Pike S", "37115" },
+                    { 5, "Franklin", 35.93497f, -86.82579f, "TN", "1556 W McEwen Dr.", "37067" },
+                    { 6, "Franklin", 35.93497f, -86.82579f, "TN", "1556 W McEwen Dr.", "37067" },
+                    { 7, "Franklin", 35.93497f, -86.82579f, "TN", "1556 W McEwen Dr.", "37067" }
                 });
 
             migrationBuilder.InsertData(
@@ -353,15 +352,15 @@ namespace Bhoba.Migrations
                 columns: new[] { "FelonId", "Alias", "DateOfBirth", "FirstName", "LastName" },
                 values: new object[,]
                 {
-                    { 1, "Bobo", new DateTime(1917, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "John", "Doe" },
-                    { 2, "Bitch", new DateTime(1987, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jane", "Doe" },
-                    { 3, "James", new DateTime(1997, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jim", "Bob" }
+                    { 1, "Johnny Boy", new DateTime(1917, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "John", "Doe" },
+                    { 2, "Miss JD", new DateTime(1987, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jane", "Doe" },
+                    { 3, "JimBob", new DateTime(1997, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "James", "Bobson" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "AddressId", "ApplicationUserRoleId", "FirstName", "LastName" },
-                values: new object[] { "2dd716f4-ad2d-4cdc-8b8e-d0c1688f0598", 0, "50732898-4950-46bd-a743-1205340e51e4", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEJyfWQWOAlUgFuHQs/h5reTL9zHvjr3V1b62qzmfl6bCD7MIgpzfeYUd5iAYy29d/w==", null, false, "af113fea-3c34-4f09-9af7-50910d1d2896", false, "admin@admin.com", 1, 1, "admin", "admin" });
+                values: new object[] { "03a52beb-c1f9-436c-8c8e-34e5e39a2450", 0, "030ab4d1-00bc-4bc8-b7ef-e93d17f2130b", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEAFChLZWAp/WIRkOKvcsHvlZLL9Q4+9tzSSgFj8pgJaW+fa56274sz2rFB7Alk97qA==", null, false, "6de3c6c7-8971-4133-b72f-d2a50f5594f6", false, "admin@admin.com", 1, 1, "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "BailBondsmans",
@@ -370,7 +369,7 @@ namespace Bhoba.Migrations
                 {
                     { 1, 2, "Hunt You Down Bailbonds, LLC" },
                     { 2, 3, "Music City Bailbonds, LLC" },
-                    { 3, 4, "You Done Fucked Up Bailbonds, LLC" }
+                    { 3, 4, "You Screwed Up Bailbonds, LLC" }
                 });
 
             migrationBuilder.InsertData(

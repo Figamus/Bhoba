@@ -27,6 +27,9 @@ namespace Bhoba.Models
         [StringLength(55, ErrorMessage = "Please enter a zipcode")]
         public string ZipCode { get; set; }
 
+        public float? Latitude { get; set; }
+        public float? Longitude { get; set; }
+
         public List<FelonAddress> FelonAddresses { get; set; }
     }
 }

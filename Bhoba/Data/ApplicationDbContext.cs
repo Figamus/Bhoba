@@ -47,82 +47,72 @@ namespace Bhoba.Data
                 new Address()
                 {
                     AddressId = 1,
-                    StreetAddress= "123 Admin Way",
-                    City = "Everywhere",
-                    State = "XX",
-                    ZipCode = "12345"
+                    StreetAddress= "3001 Alan Dr.",
+                    City = "Spring Hill",
+                    State = "TN",
+                    ZipCode = "37174",
+                    Latitude = 35.7386591f,
+                    Longitude = -86.90933509999999f
                 },
                 new Address()
                 {
                     AddressId = 2,
-                    StreetAddress = "223 Admin Way",
-                    City = "Everywhere2",
-                    State = "XX",
-                    ZipCode = "12345"
+                    StreetAddress = "500 Interstate Blvd.",
+                    City = "Nashville",
+                    State = "TN",
+                    ZipCode = "37210",
+                    Latitude = 36.132866f,
+                    Longitude = -86.7563141f
                 },
                 new Address()
                 {
                     AddressId = 3,
-                    StreetAddress = "323 Admin Way",
-                    City = "Everywhere3",
-                    State = "XX",
-                    ZipCode = "12345"
+                    StreetAddress = "4900 Port Royal Rd.",
+                    City = "Spring Hill",
+                    State = "TN",
+                    ZipCode = "37174",
+                    Latitude = 35.7386591f,
+                    Longitude = -86.90933509999999f
                 },
                 new Address()
                 {
                     AddressId = 4,
-                    StreetAddress = "423 Admin Way",
-                    City = "Everywhere4",
-                    State = "XX",
-                    ZipCode = "12345"
+                    StreetAddress = "627 Gallatin Pike S",
+                    City = "Madison",
+                    State = "TN",
+                    ZipCode = "37115",
+                    Latitude = 36.2566023f,
+                    Longitude = -86.7131316f
                 },
                 new Address()
                 {
                     AddressId = 5,
-                    StreetAddress = "523 Admin Way",
-                    City = "Everywhere5",
-                    State = "XX",
-                    ZipCode = "12345"
+                    StreetAddress = "1556 W McEwen Dr.",
+                    City = "Franklin",
+                    State = "TN",
+                    ZipCode = "37067",
+                    Latitude = 35.9349765f,
+                    Longitude = -86.82579f
                 },
                 new Address()
                 {
                     AddressId = 6,
-                    StreetAddress = "623 Admin Way",
-                    City = "Everywhere6",
-                    State = "XX",
-                    ZipCode = "12345"
+                    StreetAddress = "1556 W McEwen Dr.",
+                    City = "Franklin",
+                    State = "TN",
+                    ZipCode = "37067",
+                    Latitude = 35.9349765f,
+                    Longitude = -86.82579f
                 },
                 new Address()
                 {
                     AddressId = 7,
-                    StreetAddress = "723 Admin Way",
-                    City = "Everywhere7",
-                    State = "XX",
-                    ZipCode = "12345"
-                },
-                new Address()
-                {
-                    AddressId = 8,
-                    StreetAddress = "823 Admin Way",
-                    City = "Everywhere8",
-                    State = "XX",
-                    ZipCode = "12345"
-                },
-                new Address()
-                {
-                    AddressId = 9,
-                    StreetAddress = "923 Admin Way",
-                    City = "Everywhere9",
-                    State = "XX",
-                    ZipCode = "12345"
-                },
-                new Address()
-                {
-                    AddressId = 10,
-                    StreetAddress= "1023 Admin Way",
-                    City = "Everywhere10",
-                    State = "XX",
-                    ZipCode = "12345"
+                    StreetAddress = "1556 W McEwen Dr.",
+                    City = "Franklin",
+                    State = "TN",
+                    ZipCode = "37067",
+                    Latitude = 35.9349765f,
+                    Longitude = -86.82579f
                 }
             );
 
@@ -142,7 +132,7 @@ namespace Bhoba.Data
                 new BailBondsman()
                 {
                     BailBondsmanId = 3,
-                    Name = "You Done Fucked Up Bailbonds, LLC",
+                    Name = "You Screwed Up Bailbonds, LLC",
                     AddressId = 4,
                 }
             );
@@ -154,7 +144,7 @@ namespace Bhoba.Data
                     FirstName = "John",
                     LastName = "Doe",
                     DateOfBirth = new DateTime(1917, 4, 1),
-                    Alias = "Bobo"
+                    Alias = "Johnny Boy"
                 },
                 new Felon()
                 {
@@ -162,15 +152,15 @@ namespace Bhoba.Data
                     FirstName = "Jane",
                     LastName = "Doe",
                     DateOfBirth = new DateTime(1987, 3, 18),
-                    Alias = "Bitch"
+                    Alias = "Miss JD"
                 },
                 new Felon()
                 {
                     FelonId = 3,
-                    FirstName = "Jim",
-                    LastName = "Bob",
+                    FirstName = "James",
+                    LastName = "Bobson",
                     DateOfBirth = new DateTime(1997, 1, 22),
-                    Alias = "James"
+                    Alias = "JimBob"
                 }
             );
 

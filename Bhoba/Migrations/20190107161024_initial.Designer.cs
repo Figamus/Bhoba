@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bhoba.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181227001737_initial")]
+    [Migration("20190107161024_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,10 @@ namespace Bhoba.Migrations
                         .IsRequired()
                         .HasMaxLength(55);
 
+                    b.Property<float?>("Latitude");
+
+                    b.Property<float?>("Longitude");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasMaxLength(55);
@@ -48,16 +52,13 @@ namespace Bhoba.Migrations
                     b.ToTable("Addresses");
 
                     b.HasData(
-                        new { AddressId = 1, City = "Everywhere", State = "XX", StreetAddress = "123 Admin Way", ZipCode = "12345" },
-                        new { AddressId = 2, City = "Everywhere2", State = "XX", StreetAddress = "223 Admin Way", ZipCode = "12345" },
-                        new { AddressId = 3, City = "Everywhere3", State = "XX", StreetAddress = "323 Admin Way", ZipCode = "12345" },
-                        new { AddressId = 4, City = "Everywhere4", State = "XX", StreetAddress = "423 Admin Way", ZipCode = "12345" },
-                        new { AddressId = 5, City = "Everywhere5", State = "XX", StreetAddress = "523 Admin Way", ZipCode = "12345" },
-                        new { AddressId = 6, City = "Everywhere6", State = "XX", StreetAddress = "623 Admin Way", ZipCode = "12345" },
-                        new { AddressId = 7, City = "Everywhere7", State = "XX", StreetAddress = "723 Admin Way", ZipCode = "12345" },
-                        new { AddressId = 8, City = "Everywhere8", State = "XX", StreetAddress = "823 Admin Way", ZipCode = "12345" },
-                        new { AddressId = 9, City = "Everywhere9", State = "XX", StreetAddress = "923 Admin Way", ZipCode = "12345" },
-                        new { AddressId = 10, City = "Everywhere10", State = "XX", StreetAddress = "1023 Admin Way", ZipCode = "12345" }
+                        new { AddressId = 1, City = "Spring Hill", Latitude = 35.73866f, Longitude = -86.90933f, State = "TN", StreetAddress = "3001 Alan Dr.", ZipCode = "37174" },
+                        new { AddressId = 2, City = "Nashville", Latitude = 36.13287f, Longitude = -86.75632f, State = "TN", StreetAddress = "500 Interstate Blvd.", ZipCode = "37210" },
+                        new { AddressId = 3, City = "Spring Hill", Latitude = 35.73866f, Longitude = -86.90933f, State = "TN", StreetAddress = "4900 Port Royal Rd.", ZipCode = "37174" },
+                        new { AddressId = 4, City = "Madison", Latitude = 36.2566f, Longitude = -86.71313f, State = "TN", StreetAddress = "627 Gallatin Pike S", ZipCode = "37115" },
+                        new { AddressId = 5, City = "Franklin", Latitude = 35.93497f, Longitude = -86.82579f, State = "TN", StreetAddress = "1556 W McEwen Dr.", ZipCode = "37067" },
+                        new { AddressId = 6, City = "Franklin", Latitude = 35.93497f, Longitude = -86.82579f, State = "TN", StreetAddress = "1556 W McEwen Dr.", ZipCode = "37067" },
+                        new { AddressId = 7, City = "Franklin", Latitude = 35.93497f, Longitude = -86.82579f, State = "TN", StreetAddress = "1556 W McEwen Dr.", ZipCode = "37067" }
                     );
                 });
 
@@ -102,7 +103,7 @@ namespace Bhoba.Migrations
                     b.HasData(
                         new { BailBondsmanId = 1, AddressId = 2, Name = "Hunt You Down Bailbonds, LLC" },
                         new { BailBondsmanId = 2, AddressId = 3, Name = "Music City Bailbonds, LLC" },
-                        new { BailBondsmanId = 3, AddressId = 4, Name = "You Done Fucked Up Bailbonds, LLC" }
+                        new { BailBondsmanId = 3, AddressId = 4, Name = "You Screwed Up Bailbonds, LLC" }
                     );
                 });
 
@@ -130,9 +131,9 @@ namespace Bhoba.Migrations
                     b.ToTable("Felons");
 
                     b.HasData(
-                        new { FelonId = 1, Alias = "Bobo", DateOfBirth = new DateTime(1917, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "John", LastName = "Doe" },
-                        new { FelonId = 2, Alias = "Bitch", DateOfBirth = new DateTime(1987, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Jane", LastName = "Doe" },
-                        new { FelonId = 3, Alias = "James", DateOfBirth = new DateTime(1997, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Jim", LastName = "Bob" }
+                        new { FelonId = 1, Alias = "Johnny Boy", DateOfBirth = new DateTime(1917, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "John", LastName = "Doe" },
+                        new { FelonId = 2, Alias = "Miss JD", DateOfBirth = new DateTime(1987, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Jane", LastName = "Doe" },
+                        new { FelonId = 3, Alias = "JimBob", DateOfBirth = new DateTime(1997, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "James", LastName = "Bobson" }
                     );
                 });
 
@@ -424,7 +425,7 @@ namespace Bhoba.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.HasData(
-                        new { Id = "2dd716f4-ad2d-4cdc-8b8e-d0c1688f0598", AccessFailedCount = 0, ConcurrencyStamp = "50732898-4950-46bd-a743-1205340e51e4", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEJyfWQWOAlUgFuHQs/h5reTL9zHvjr3V1b62qzmfl6bCD7MIgpzfeYUd5iAYy29d/w==", PhoneNumberConfirmed = false, SecurityStamp = "af113fea-3c34-4f09-9af7-50910d1d2896", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
+                        new { Id = "03a52beb-c1f9-436c-8c8e-34e5e39a2450", AccessFailedCount = 0, ConcurrencyStamp = "030ab4d1-00bc-4bc8-b7ef-e93d17f2130b", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEAFChLZWAp/WIRkOKvcsHvlZLL9Q4+9tzSSgFj8pgJaW+fa56274sz2rFB7Alk97qA==", PhoneNumberConfirmed = false, SecurityStamp = "6de3c6c7-8971-4133-b72f-d2a50f5594f6", TwoFactorEnabled = false, UserName = "admin@admin.com", AddressId = 1, ApplicationUserRoleId = 1, FirstName = "admin", LastName = "admin" }
                     );
                 });
 
