@@ -4,72 +4,76 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Details for @Model.Address.StreetAddress</h2>
 
 <div>
-    <h4>Address</h4>
-    <hr />
     <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Address.StreetAddress)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Address.StreetAddress)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Address.City)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Address.City)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Address.State)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Address.State)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Address.ZipCode)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Address.ZipCode)
-            </dd>
-        </dl>
+        <a asp-action="Edit" asp-route-id="@Model.Address.AddressId" class="btn btn-default btn-sm">Edit Address</a>
     </div>
-    <div class="col-md-6" style="height: 300px;">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Felons.Single().FirstName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Felons.Single().LastName)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Felons)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
-                        <td>
-                            <a asp-controller="Addresses" asp-action="Details" asp-route-id="@item.FelonId">Details</a> |
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address.StreetAddress)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Address.StreetAddress)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address.City)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Address.City)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address.State)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Address.State)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address.ZipCode)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Address.ZipCode)
+                    </dd>
+                </dl>
+            </div>
+            <div class="row">
+                <div class="col-md-8" style="height: 300px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Felons.Single().FirstName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Felons.Single().LastName)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Felons)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Felons" asp-action="Details" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Address.AddressId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>
