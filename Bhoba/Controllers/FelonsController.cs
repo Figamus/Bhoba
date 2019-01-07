@@ -66,6 +66,8 @@ namespace Bhoba.Controllers
                 avm.City = item.City;
                 avm.State = item.State;
                 avm.ZipCode = item.ZipCode;
+                avm.Latitude = item.Latitude;
+                avm.Longitude = item.Longitude;
 
                 createview.listOfAvm.Add(avm);
             }

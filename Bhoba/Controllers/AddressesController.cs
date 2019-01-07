@@ -78,7 +78,9 @@ namespace Bhoba.Controllers
         public async Task<IActionResult> Create(int id, Address address)
         {
             string url = $"{address.StreetAddress.Trim()},{address.City.Trim()},{address.State.Trim()},{address.ZipCode.Trim()}";
-            var geoCodeObject = await GetRequest($"https://maps.googleapis.com/maps/api/geocode/json?address={url}&key=AIzaSyBe3KeHWvwP2BX-h5LGDk3omNdBvVzR4gQ");
+            Location geoCodeObject = await GetRequest($"https://maps.googleapis.com/maps/api/geocode/json?address={url}&key=AIzaSyBe3KeHWvwP2BX-h5LGDk3omNdBvVzR4gQ");
+            address.Latitude = geoCodeObject.lat;
+            address.Longitude = geoCodeObject.lng;
             if (ModelState.IsValid)
             {
                 _context.Add(address);
@@ -184,7 +186,7 @@ namespace Bhoba.Controllers
             return _context.Addresses.Any(e => e.AddressId == id);
         }
 
-        public async Task<string> GetRequest(string url)
+        public async Task<Location> GetRequest(string url)
         {
 
             using (HttpClient client = new HttpClient())
@@ -194,11 +196,19 @@ namespace Bhoba.Controllers
                     using (HttpContent content = response.Content)
                     {
                         string result = await content.ReadAsStringAsync();
-                        Dictionary<string, object> parsedResponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
-                        var foo = ((JObject)parsedResponse["results"]).Value<JObject>("geometry");
-                        var bar = foo.ToObject<Dictionary<string, object>>();
-                        var baz = bar["extract"].ToString();
-                        return baz;
+                        Geocode parsedResponse = JsonConvert.DeserializeObject<Geocode>(result);
+                        if (parsedResponse.results.Length == 0)
+                        {
+                            return new Location()
+                            {
+                                lat = null,
+                                lng = null,
+                            };
+                        }
+                        else
+                        {
+                        return parsedResponse.results[0].geometry.location;
+                        }
                     }
                 }
             }
