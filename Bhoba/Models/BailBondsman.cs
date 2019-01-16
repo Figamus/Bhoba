@@ -9,6 +9,7 @@ namespace Bhoba.Models
     public class BailBondsman
     {
         [Key]
+        [Display(Name = "Bailbond Agency")]
         public int BailBondsmanId { get; set; }
 
         [Required]
