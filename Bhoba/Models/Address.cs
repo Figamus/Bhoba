@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Bhoba.Models
 
         [Required]
         [StringLength(55, ErrorMessage = "Please enter a street address")]
+        [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
 
         [Required]

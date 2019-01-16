@@ -114,6 +114,7 @@ function initMap() {
         {
             createMarker(address.fullAddress, address.Latitude, address.Longitude);
             bounds.extend(new google.maps.LatLng(address.Latitude, address.Longitude));
+            nextAddress++;
             next();
         }
         else
@@ -126,10 +127,10 @@ function initMap() {
                     let lng = p.lng();
                     createMarker(address, lat, lng);
                     bounds.extend(new google.maps.LatLng(lat, lng));
+                    nextAddress++
                 }
                 else {
                     if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                        nextAddress--;
                         delay++;
                     } else {
                     }
@@ -156,10 +157,6 @@ function initMap() {
     //a counter for the index position on the fullList array
     let nextAddress = 0;
 
-    //function to increaseCounter to be used within a setTimeout
-    function increaseCounter() {
-        nextAddress++
-    };
     //function to run geoCodeAddress to be used within a setTimeout
     callGeocode = () => {
         geocodeAddress(finalList[nextAddress], theNext);
@@ -169,7 +166,6 @@ function initMap() {
     function theNext() {
         if (nextAddress < finalList.length) {
             setTimeout(callGeocode, delay);
-            setTimeout(increaseCounter, delay);
         } else {
             map.fitBounds(bounds);
         }
