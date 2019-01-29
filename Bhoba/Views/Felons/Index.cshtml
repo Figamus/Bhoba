@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bhoba.Models.Felon>
+﻿@model Bhoba.Models.FelonViewModel.FelonIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,52 +7,55 @@
 <h2>Felon Database</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-default btn-sm">Issue Bond For New Felon</a>
+    @if(Model.User.ApplicationUserRoleId == 1)
+    {
+        <a asp-action="Create" class="btn btn-default btn-sm">Issue Bond For New Felon</a>
+    } 
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.Felons.First().FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.Felons.First().LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Alias)
+                @Html.DisplayNameFor(model => model.Felons.First().Alias)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FelonAddresses)
+                @Html.DisplayNameFor(model => model.Felons.First().FelonAddresses)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FelonBounties)
+                @Html.DisplayNameFor(model => model.Felons.First().FelonBounties)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Alias)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FelonAddresses.Count)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FelonBounties.Count)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Details</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Felons) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alias)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FelonAddresses.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FelonBounties.Count)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Details</a>
+                </td>
+            </tr>
+            }
     </tbody>
 </table>

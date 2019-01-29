@@ -10,28 +10,38 @@ using Bhoba.Models;
 using Microsoft.AspNetCore.Authorization;
 using Bhoba.Models.FelonViewModel;
 using Bhoba.Models.AddressViewModel;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bhoba.Controllers
 {
     public class FelonsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public FelonsController(ApplicationDbContext context)
+        public FelonsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Felons
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var felons = await _context.Felons
+            FelonIndexViewModel createView = new FelonIndexViewModel();
+
+            createView.Felons = await _context.Felons
                         .Include(f => f.FelonAddresses)
                         .Include(f => f.FelonBounties)
                         .ToListAsync();
 
-            return View(felons);
+            // Get the current user
+            createView.User = await GetCurrentUserAsync();
+
+            return View(createView);
         }
 
         // GET: Felons/Details/5
@@ -94,7 +104,8 @@ namespace Bhoba.Controllers
             createview.Search = search;
             createview.Felons = await _context.Felons
                                         .Where(felon => felon.FirstName.Contains(search) || felon.LastName.Contains(search) || (felon.FirstName + " " + felon.LastName).Contains(search))
-                                        .Include(f => f.FelonAddresses).Include(f => f.FelonBounties).ToListAsync();
+                                        .Include(f => f.FelonAddresses).Include(f => f.FelonBounties)
+                                        .ToListAsync();
 
             return View(createview);
         }
