@@ -54,7 +54,10 @@ else
                     @Html.DisplayFor(modelItem => item.FelonBounties.Count)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Edit</a>
+                    @if (Model.User.ApplicationUserRoleId != 2)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Edit</a>
+                    }
                     <a asp-action="Details" asp-route-id="@item.FelonId" class="btn btn-default btn-sm">Details</a>
                 </td>
             </tr>

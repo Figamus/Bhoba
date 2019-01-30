@@ -10,5 +10,7 @@ namespace Bhoba.Models.FelonViewModel
         public string Search { get; set; }
 
         public List<Felon> Felons { get; set; }
+
+        public ApplicationUser User { get; set; }
     }
 }
