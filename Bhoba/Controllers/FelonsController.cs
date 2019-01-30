@@ -52,23 +52,25 @@ namespace Bhoba.Controllers
             {
                 return NotFound();
             }
-            FelonDetailsViewModel createview = new FelonDetailsViewModel();
+            FelonDetailsViewModel createView = new FelonDetailsViewModel();
 
-            createview.Felon = await _context.Felons
+            createView.User = await GetCurrentUserAsync();
+
+            createView.Felon = await _context.Felons
                                 .Include(f => f.FelonAddresses)
                                 .Include(f => f.FelonBounties)
                                     .ThenInclude(fb => fb.BailBondsman)
                                 .FirstOrDefaultAsync(m => m.FelonId == id);
 
-            foreach (var item in createview.Felon.FelonAddresses)
+            foreach (var item in createView.Felon.FelonAddresses)
             {
                 Address addresses = _context.Addresses
                                     .Where(ad => ad.AddressId == item.AddressId)
                                     .FirstOrDefault();
-                createview.Addresses.Add(addresses);
+                createView.Addresses.Add(addresses);
             }
 
-            foreach (var item in createview.Addresses)
+            foreach (var item in createView.Addresses)
             {
                 AddressVM avm = new AddressVM();
                 avm.AddressId = item.AddressId;
@@ -79,21 +81,21 @@ namespace Bhoba.Controllers
                 avm.Latitude = item.Latitude;
                 avm.Longitude = item.Longitude;
 
-                createview.listOfAvm.Add(avm);
+                createView.listOfAvm.Add(avm);
             }
 
-            foreach (var item in createview.Felon.FelonBounties)
+            foreach (var item in createView.Felon.FelonBounties)
             {
                 BailBondsman bonds = _context.BailBondsmans.Where(bb => bb.BailBondsmanId == item.BailBondsmanId).FirstOrDefault();
-                createview.BailBondsmen.Add(bonds);
+                createView.BailBondsmen.Add(bonds);
             }
 
-            if (createview.Felon == null)
+            if (createView.Felon == null)
             {
                 return NotFound();
             }
 
-            return View(createview);
+            return View(createView);
         }
 
         // GET: Search Felons
