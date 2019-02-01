@@ -8,17 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using Bhoba.Data;
 using Bhoba.Models;
 using Bhoba.Models.FelonBountyViewModel;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bhoba.Controllers
 {
     public class FelonBountiesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public FelonBountiesController(ApplicationDbContext context)
+        public FelonBountiesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: FelonBounties
         public async Task<IActionResult> Index()
@@ -48,8 +53,13 @@ namespace Bhoba.Controllers
         }
 
         // GET: FelonBounties/Create
-        public IActionResult Create(int? id)
+        public async Task<IActionResult> Create(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
             List<SelectListItem> bailbondsmans = _context.BailBondsmans.Select(bb => new SelectListItem(bb.Name, bb.BailBondsmanId.ToString())).ToList();
 
             FelonBountyCreateViewModel createViewModel = new FelonBountyCreateViewModel();
@@ -70,6 +80,12 @@ namespace Bhoba.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int id, FelonBountyCreateViewModel fb)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             fb.FelonBounty.BondClosed = false;
             fb.FelonBounty.FelonId = id;
             fb.FelonBounty.BailBondsmanId = fb.BailBondsmansId;
@@ -104,6 +120,12 @@ namespace Bhoba.Controllers
         // GET: FelonBounties/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             FelonBountyEditViewModel createview = new FelonBountyEditViewModel();
             if (id == null)
             {
@@ -131,6 +153,12 @@ namespace Bhoba.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, FelonBounty returnView)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             if (id != returnView.FelonBountyId)
             {
                 return NotFound();
@@ -176,6 +204,12 @@ namespace Bhoba.Controllers
         // GET: FelonBounties/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             if (id == null)
             {
                 return NotFound();

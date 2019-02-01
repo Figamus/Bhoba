@@ -133,7 +133,8 @@ namespace Bhoba.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // If we got this far, something failed, redisplay form. Repopulate the UserRoleList
+            UserRoleList = _context.ApplicatonUserRoles.Select(aur => new SelectListItem(aur.RoleName, aur.ApplicationUserRoleId.ToString())).Skip(1).ToList();
             return Page();
         }
     }

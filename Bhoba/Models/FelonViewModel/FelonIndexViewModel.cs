@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bhoba.Models.FelonViewModel
 {
-    public class FelonSearchViewModel
+    public class FelonIndexViewModel
     {
-        public string Search { get; set; }
-
         public List<Felon> Felons { get; set; }
-
         public ApplicationUser User { get; set; }
     }
 }

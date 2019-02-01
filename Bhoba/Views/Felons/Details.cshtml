@@ -13,9 +13,16 @@
 <h2>Details for @Model.Felon.FirstName @Model.Felon.LastName</h2>
 <div>
     <a asp-action="Index" class="btn btn-default btn-sm">Back to List</a>
-    <a asp-action="Edit" asp-route-id="@Model.Felon.FelonId" class="btn btn-default btn-sm">Edit</a> | 
+    @if (Model.User.ApplicationUserRoleId != 2)
+    {
+    <a asp-action="Edit" asp-route-id="@Model.Felon.FelonId" class="btn btn-default btn-sm">Edit</a>
+    }
+    |
     <a asp-controller="Addresses" asp-action="Create" asp-route-id="@Model.Felon.FelonId" class="btn btn-default btn-sm">Add Address</a>
+    @if (Model.User.ApplicationUserRoleId != 2)
+    {
     <a asp-controller="FelonBounties" asp-action="Create" asp-route-id="@Model.Felon.FelonId" class="btn btn-default btn-sm">Add BailBond</a>
+    }
 </div>
 <div>
     <div class="container">
@@ -67,7 +74,10 @@
                                             @Html.DisplayFor(modelItem => item.BountyAmount)
                                         </td>
                                         <td>
-                                            <a asp-controller="FelonBounties" asp-action="Edit" asp-route-id="@item.FelonBountyId" class="btn btn-default btn-sm">Edit</a>
+                                            @if (Model.User.ApplicationUserRoleId != 2)
+                                            {
+                                                <a asp-controller="FelonBounties" asp-action="Edit" asp-route-id="@item.FelonBountyId" class="btn btn-default btn-sm">Edit</a>
+                                            }
                                             <a asp-controller="FelonBounties" asp-action="Details" asp-route-id="@item.FelonBountyId" class="btn btn-default btn-sm">Details</a>
                                         </td>
                                     </tr>
@@ -103,7 +113,10 @@
                                             @Html.DisplayFor(modelItem => item.BountyAmount)
                                         </td>
                                         <td>
-                                            <a asp-controller="FelonBounties" asp-action="Edit" asp-route-id="@item.FelonBountyId" class="btn btn-default btn-sm">Edit</a>
+                                            @if (Model.User.ApplicationUserRoleId != 2)
+                                            {
+                                                <a asp-controller="FelonBounties" asp-action="Edit" asp-route-id="@item.FelonBountyId" class="btn btn-default btn-sm">Edit</a>
+                                            }
                                             <a asp-controller="FelonBounties" asp-action="Details" asp-route-id="@item.FelonBountyId" class="btn btn-default btn-sm">Details</a>
                                         </td>
                                     </tr>

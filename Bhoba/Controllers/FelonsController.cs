@@ -10,28 +10,38 @@ using Bhoba.Models;
 using Microsoft.AspNetCore.Authorization;
 using Bhoba.Models.FelonViewModel;
 using Bhoba.Models.AddressViewModel;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bhoba.Controllers
 {
     public class FelonsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public FelonsController(ApplicationDbContext context)
+        public FelonsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Felons
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var felons = await _context.Felons
+            FelonIndexViewModel createView = new FelonIndexViewModel();
+
+            createView.Felons = await _context.Felons
                         .Include(f => f.FelonAddresses)
                         .Include(f => f.FelonBounties)
                         .ToListAsync();
 
-            return View(felons);
+            // Get the current user
+            createView.User = await GetCurrentUserAsync();
+
+            return View(createView);
         }
 
         // GET: Felons/Details/5
@@ -42,23 +52,25 @@ namespace Bhoba.Controllers
             {
                 return NotFound();
             }
-            FelonDetailsViewModel createview = new FelonDetailsViewModel();
+            FelonDetailsViewModel createView = new FelonDetailsViewModel();
 
-            createview.Felon = await _context.Felons
+            createView.User = await GetCurrentUserAsync();
+
+            createView.Felon = await _context.Felons
                                 .Include(f => f.FelonAddresses)
                                 .Include(f => f.FelonBounties)
                                     .ThenInclude(fb => fb.BailBondsman)
                                 .FirstOrDefaultAsync(m => m.FelonId == id);
 
-            foreach (var item in createview.Felon.FelonAddresses)
+            foreach (var item in createView.Felon.FelonAddresses)
             {
                 Address addresses = _context.Addresses
                                     .Where(ad => ad.AddressId == item.AddressId)
                                     .FirstOrDefault();
-                createview.Addresses.Add(addresses);
+                createView.Addresses.Add(addresses);
             }
 
-            foreach (var item in createview.Addresses)
+            foreach (var item in createView.Addresses)
             {
                 AddressVM avm = new AddressVM();
                 avm.AddressId = item.AddressId;
@@ -69,40 +81,46 @@ namespace Bhoba.Controllers
                 avm.Latitude = item.Latitude;
                 avm.Longitude = item.Longitude;
 
-                createview.listOfAvm.Add(avm);
+                createView.listOfAvm.Add(avm);
             }
 
-            foreach (var item in createview.Felon.FelonBounties)
+            foreach (var item in createView.Felon.FelonBounties)
             {
                 BailBondsman bonds = _context.BailBondsmans.Where(bb => bb.BailBondsmanId == item.BailBondsmanId).FirstOrDefault();
-                createview.BailBondsmen.Add(bonds);
+                createView.BailBondsmen.Add(bonds);
             }
 
-            if (createview.Felon == null)
+            if (createView.Felon == null)
             {
                 return NotFound();
             }
 
-            return View(createview);
+            return View(createView);
         }
 
         // GET: Search Felons
         public async Task<IActionResult> Search(string search)
         {
-            FelonSearchViewModel createview = new FelonSearchViewModel();
+            FelonSearchViewModel createView = new FelonSearchViewModel();
 
-            createview.Search = search;
-            createview.Felons = await _context.Felons
+            createView.Search = search;
+            createView.User = await GetCurrentUserAsync();
+            createView.Felons = await _context.Felons
                                         .Where(felon => felon.FirstName.Contains(search) || felon.LastName.Contains(search) || (felon.FirstName + " " + felon.LastName).Contains(search))
-                                        .Include(f => f.FelonAddresses).Include(f => f.FelonBounties).ToListAsync();
+                                        .Include(f => f.FelonAddresses).Include(f => f.FelonBounties)
+                                        .ToListAsync();
 
-            return View(createview);
+            return View(createView);
         }
 
         // GET: Felons/Create
         [Authorize]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var user = await GetCurrentUserAsync();
+            if(user.ApplicationUserRoleId == 2){
+                return RedirectToAction("Index", "Felons");
+            }
             List<SelectListItem> bailbondsmans = _context.BailBondsmans.Select(bb => new SelectListItem(bb.Name, bb.BailBondsmanId.ToString())).ToList();
 
             FelonCreateViewModel createViewModel = new FelonCreateViewModel();
@@ -187,6 +205,12 @@ namespace Bhoba.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -208,6 +232,12 @@ namespace Bhoba.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FelonId,FirstName,LastName,DateOfBirth,Alias")] Felon felon)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             if (id != felon.FelonId)
             {
                 return NotFound();
@@ -240,6 +270,12 @@ namespace Bhoba.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId != 1)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -261,6 +297,11 @@ namespace Bhoba.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId != 1)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
             var felon = await _context.Felons.FindAsync(id);
             _context.Felons.Remove(felon);
             await _context.SaveChangesAsync();
