@@ -232,6 +232,12 @@ namespace Bhoba.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FelonId,FirstName,LastName,DateOfBirth,Alias")] Felon felon)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             if (id != felon.FelonId)
             {
                 return NotFound();
@@ -265,7 +271,7 @@ namespace Bhoba.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             var user = await GetCurrentUserAsync();
-            if (user.ApplicationUserRoleId == 2)
+            if (user.ApplicationUserRoleId != 1)
             {
                 return RedirectToAction("Index", "Felons");
             }
@@ -291,6 +297,11 @@ namespace Bhoba.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId != 1)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
             var felon = await _context.Felons.FindAsync(id);
             _context.Felons.Remove(felon);
             await _context.SaveChangesAsync();
