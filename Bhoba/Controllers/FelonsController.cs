@@ -115,8 +115,12 @@ namespace Bhoba.Controllers
 
         // GET: Felons/Create
         [Authorize]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var user = await GetCurrentUserAsync();
+            if(user.ApplicationUserRoleId == 2){
+                return RedirectToAction("Index", "Felons");
+            }
             List<SelectListItem> bailbondsmans = _context.BailBondsmans.Select(bb => new SelectListItem(bb.Name, bb.BailBondsmanId.ToString())).ToList();
 
             FelonCreateViewModel createViewModel = new FelonCreateViewModel();
