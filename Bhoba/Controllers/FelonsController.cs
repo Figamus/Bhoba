@@ -205,6 +205,12 @@ namespace Bhoba.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -258,6 +264,12 @@ namespace Bhoba.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user.ApplicationUserRoleId == 2)
+            {
+                return RedirectToAction("Index", "Felons");
+            }
+
             if (id == null)
             {
                 return NotFound();
